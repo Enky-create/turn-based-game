@@ -6,7 +6,7 @@ public class Unit : MonoBehaviour
     [SerializeField] private int speed = 7;
     [SerializeField] private Animator animator;
     [SerializeField] private int rotationSpeed = 10;
-    private void Move( Vector3 targetPosition)
+    public void Move( Vector3 targetPosition)
     {
         this.targetPosition = targetPosition;
     }
@@ -20,10 +20,7 @@ public class Unit : MonoBehaviour
     void Update()
     {
         
-        if (Input.GetMouseButtonDown(0))
-        {
-            Move(MouseWorld.MousePosition());
-        }
+        
         var stoppingDistance = 0.1;
         if (Vector3.Distance(transform.position, targetPosition) > stoppingDistance)
         {
