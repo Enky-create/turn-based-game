@@ -19,8 +19,6 @@ public class Unit : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        
         var stoppingDistance = 0.1;
         if (Vector3.Distance(transform.position, targetPosition) > stoppingDistance)
         {
