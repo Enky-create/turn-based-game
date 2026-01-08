@@ -7,7 +7,10 @@ public class GridTest : MonoBehaviour
     
     private void OnDrawGizmos()
     {
-        
+        if (grid == null)
+        {
+            grid = new GridSystem(10,10,2f,Vector3.zero);
+        }
 
         for (int x = 0; x < 10; x++)
         {
