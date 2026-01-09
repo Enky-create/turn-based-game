@@ -36,6 +36,20 @@ public class GridSystem
         }*cellSize;
         return noOriginPosition + originPosition;
     }
+
+    public Vector3 GetWorldPositionWithOffset(GridPosition gridPosition)
+    {
+        var noOriginPosition = new Vector3
+        {
+            x=gridPosition.x,
+            y=0,
+            z=gridPosition.z
+        }*cellSize;
+        var noOffset=noOriginPosition + originPosition;
+        var worldPositionWithOffset = noOffset + new Vector3(offset,0,offset);
+        return worldPositionWithOffset;
+    }
+
     public GridPosition GetGridPosition(Vector3 worldPosition)
     {
         var noOriginPosition=worldPosition - originPosition;
@@ -44,5 +58,17 @@ public class GridSystem
             Mathf.RoundToInt(noOriginPosition.x/cellSize),
             Mathf.RoundToInt(noOriginPosition.z/cellSize)
         );
+    }
+    public int GetWidth()
+    {
+        return width;
+    }
+    public int GetLength()
+    {
+        return length;
+    }
+    public GridObject GetGridObject(GridPosition gridPosition)
+    {
+        return gridObjects[gridPosition.x,gridPosition.z];
     }
 }

@@ -550,6 +550,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0447a820eb925173ea2506770916e4a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GridTest
+  testVisualGridCell: {fileID: 8109973070264951979, guid: 331706047918529009ab0792b1002991, type: 3}
 --- !u!4 &828019307
 Transform:
   m_ObjectHideFlags: 0
