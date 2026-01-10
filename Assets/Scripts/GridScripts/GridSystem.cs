@@ -8,7 +8,12 @@ public class GridSystem
     private float offset = 0.0f;
     private GridObject [,] gridObjects;
 
-
+    public bool IsInGrid(Vector3 position)
+    {
+        var gridPosition = GetGridPosition(position);
+        var result = gridPosition.x>=0 && gridPosition.x < width && gridPosition.z >= 0 && gridPosition.z<length;
+        return result;
+    }
     public GridSystem(int width, int length, float cellSize, Vector3 originPosition)
     {
         this.width= width;
@@ -21,8 +26,8 @@ public class GridSystem
         {
             for(int z = 0; z < length; z++)
             {
-                var gridObject = new GridPosition(x,z);
-                gridObjects[x,z] = new GridObject(gridObject, this);
+                var gridPosition = new GridPosition(x,z);
+                gridObjects[x,z] = new GridObject(gridPosition, this);
             }
         }
     }
@@ -70,5 +75,35 @@ public class GridSystem
     public GridObject GetGridObject(GridPosition gridPosition)
     {
         return gridObjects[gridPosition.x,gridPosition.z];
+    }
+    public bool TryGetGetGridObject(Vector3 worldPosition, out GridObject gridObject)
+    {
+        if (IsInGrid(worldPosition))
+        {
+            gridObject = GetGridObject(GetGridPosition(worldPosition));
+            return true;
+        }
+        gridObject = null;
+        return false;
+    }
+
+    public bool TryGetGridPosition(Vector3 worldPosition, out GridPosition gridPosition)
+    {
+        if (IsInGrid(worldPosition))
+        {
+            gridPosition = GetGridPosition(worldPosition);
+            return true;
+        }
+        gridPosition = new GridPosition(0, 0);
+        return false;
+    }
+    public bool TrySetStoredObject(Vector3 worldPosition,Transform storedObject)
+    {
+        if (TryGetGetGridObject(worldPosition, out GridObject gridObject))
+        {
+            gridObject.StoredTransform = storedObject;
+            return true;
+        }
+        return false;
     }
 }
