@@ -25,7 +25,8 @@ public class LevelGrid : MonoBehaviour
             for (int z = 0; z < grid.GetLength(); z++)
             {
                 var gridPosition = new GridPosition(x, z);
-                Vector3 pos = grid.GetWorldPositionWithOffset(gridPosition);
+                Vector3 pos = grid.GetWorldPosition(gridPosition);
+                Debug.Log("pos is " + pos);
                 VisualGridCell gridcell = Instantiate(visualGridCell, pos, Quaternion.identity);
                 gridcell.SetGridObject(grid.GetGridObject(gridPosition));
             }
@@ -34,7 +35,8 @@ public class LevelGrid : MonoBehaviour
     public bool TryGetGridPosition(Vector3 worldPosition, out GridPosition gridPosition) => grid.TryGetGridPosition(worldPosition, out gridPosition);
     public void UnitMovedPosition(GridPosition oldPosition, GridPosition newPosition, Unit unit)
     {
-        //grid.RemoveUnitObject(oldPosition, unit);
-        //grid.AddUnitObject(newPosition, unit);
+        grid.TryAddUnit(newPosition,unit);
+        grid.TryRemoveUnit(oldPosition,unit);
     }
+    
 }

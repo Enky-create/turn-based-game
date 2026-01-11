@@ -14,6 +14,11 @@ public class GridSystem
         var result = gridPosition.x>=0 && gridPosition.x < width && gridPosition.z >= 0 && gridPosition.z<length;
         return result;
     }
+    public bool IsInGrid(GridPosition gridPosition)
+    {
+        var result = gridPosition.x>=0 && gridPosition.x < width && gridPosition.z >= 0 && gridPosition.z<length;
+        return result;
+    }
     public GridSystem(int width, int length, float cellSize, Vector3 originPosition)
     {
         this.width= width;
@@ -76,7 +81,7 @@ public class GridSystem
     {
         return gridObjects[gridPosition.x,gridPosition.z];
     }
-    public bool TryGetGetGridObject(Vector3 worldPosition, out GridObject gridObject)
+    public bool TryGetGridObject(Vector3 worldPosition, out GridObject gridObject)
     {
         if (IsInGrid(worldPosition))
         {
@@ -97,11 +102,40 @@ public class GridSystem
         gridPosition = new GridPosition(0, 0);
         return false;
     }
-    public bool TrySetStoredObject(Vector3 worldPosition,Transform storedObject)
+    public bool TryAddUnit(Vector3 worldPosition,Unit unit)
     {
-        if (TryGetGetGridObject(worldPosition, out GridObject gridObject))
+        if (TryGetGridObject(worldPosition, out GridObject gridObject))
         {
-            gridObject.StoredTransform = storedObject;
+            gridObject.AddUnit(unit);
+            return true;
+        }
+        return false;
+    }
+    public bool TryRemoveUnit(Vector3 worldPosition,Unit unit)
+    {
+        if (TryGetGridObject(worldPosition, out GridObject gridObject))
+        {
+            gridObject.RemoveUnit(unit);
+            return true;
+        }
+        return false;
+    }
+    public bool TryAddUnit(GridPosition gridPosition, Unit unit)
+    {
+        if (IsInGrid(gridPosition))
+        {
+            var gridObject = GetGridObject(gridPosition);
+            gridObject.AddUnit(unit);
+            return true;
+        }
+        return false;
+    }
+    public bool TryRemoveUnit(GridPosition gridPosition, Unit unit)
+    {
+        if (IsInGrid(gridPosition))
+        {
+            var gridObject = GetGridObject(gridPosition);
+            gridObject.RemoveUnit(unit);
             return true;
         }
         return false;

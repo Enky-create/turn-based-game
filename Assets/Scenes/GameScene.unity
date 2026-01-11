@@ -530,27 +530,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 828019307}
-  - component: {fileID: 828019306}
+  - component: {fileID: 828019308}
   m_Layer: 0
-  m_Name: Test
+  m_Name: LevelGrid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &828019306
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 828019305}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0447a820eb925173ea2506770916e4a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GridTest
-  testVisualGridCell: {fileID: 8109973070264951979, guid: 331706047918529009ab0792b1002991, type: 3}
 --- !u!4 &828019307
 Transform:
   m_ObjectHideFlags: 0
@@ -560,12 +547,25 @@ Transform:
   m_GameObject: {fileID: 828019305}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.40849, y: 2.52844, z: -1.18727}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &828019308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 828019305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7782ce551db58e44bb604ae509612751, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LevelGrid
+  visualGridCell: {fileID: 8109973070264951979, guid: 331706047918529009ab0792b1002991, type: 3}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
