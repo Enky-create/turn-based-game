@@ -4,7 +4,7 @@ using UnityEngine;
 public class GridTest : MonoBehaviour
 {
     private GridSystem grid;
-    [SerializeField]private TestVisualGridCell testVisualGridCell;
+    [SerializeField]private VisualGridCell testVisualGridCell;
     
     private void Awake()
     {
@@ -18,7 +18,7 @@ public class GridTest : MonoBehaviour
             {
                 var gridPosition = new GridPosition(x, z);
                 Vector3 pos = grid.GetWorldPositionWithOffset(gridPosition);
-                TestVisualGridCell gridcell = Instantiate(testVisualGridCell,pos,Quaternion.identity);
+                VisualGridCell gridcell = Instantiate(testVisualGridCell,pos,Quaternion.identity);
                 gridcell.SetGridObject(grid.GetGridObject(gridPosition));
             }
         }
