@@ -20,7 +20,7 @@ public struct GridPosition: IEquatable<GridPosition>
     }
     public static bool operator !=(GridPosition a, GridPosition b)
     {
-        return (a==b);
+        return !(a==b);
     }
     public override bool Equals(object obj)
     {

@@ -37,12 +37,13 @@ public class Unit : MonoBehaviour
             this.transform.position += moveDirection * speed * Time.deltaTime;
             animator.SetBool("IsWalking", true);
             transform.forward = Vector3.Lerp(transform.forward, moveDirection,Time.deltaTime*rotationSpeed);
-            
-            
-                Debug.Log("AAAAAAA"+gridPosition);
+
+            if (currentGridPosition!=gridPosition)
+            {
+                
                 LevelGrid.Instance.UnitMovedPosition(currentGridPosition,gridPosition,this);
                 currentGridPosition = gridPosition;
-            
+            }
         }
         else
         {

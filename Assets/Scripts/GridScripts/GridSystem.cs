@@ -11,8 +11,7 @@ public class GridSystem
     public bool IsInGrid(Vector3 position)
     {
         var gridPosition = GetGridPosition(position);
-        var result = gridPosition.x>=0 && gridPosition.x < width && gridPosition.z >= 0 && gridPosition.z<length;
-        return result;
+        return IsInGrid(gridPosition);
     }
     public bool IsInGrid(GridPosition gridPosition)
     {
