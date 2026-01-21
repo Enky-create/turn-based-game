@@ -803,7 +803,7 @@ MonoBehaviour:
       Offset: {x: 0, y: 0}
   CenterOnActivate: 1
   TargetOffset: {x: 0, y: 0, z: 0}
-  Damping: {x: 0.5, y: 0.5}
+  Damping: {x: 0, y: 0}
   Lookahead:
     Enabled: 0
     Time: 0
@@ -823,9 +823,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineFollow
   TrackerSettings:
     BindingMode: 3
-    PositionDamping: {x: 1, y: 1, z: 1}
+    PositionDamping: {x: 0, y: 0, z: 0}
     AngularDampingMode: 0
-    RotationDamping: {x: 1, y: 1, z: 1}
+    RotationDamping: {x: 0, y: 0, z: 0}
     QuaternionDamping: 1
   FollowOffset: {x: 0, y: 5, z: -10}
 --- !u!114 &1064893933
@@ -1103,8 +1103,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4911ee2c8391204bb0fdae61be21fc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraControl
+  cinemachineFollow: {fileID: 1064893932}
   moveSpeed: 15
-  rotationSpeed: 15
+  rotationSpeed: 100
+  zoomAmount: 1
   layerMask:
     serializedVersion: 2
     m_Bits: 64
