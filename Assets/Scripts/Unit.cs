@@ -12,17 +12,20 @@ public class Unit : MonoBehaviour
     private void Awake()
     {
         moveAction = GetComponent<MoveAction>();
-    }
-    void Start()
-    {
         if (LevelGrid.Instance.TryGetGridPosition(transform.position, out GridPosition gridPosition))
         {
             currentGridPosition = gridPosition;
+            LevelGrid.Instance.TryAddUnit(currentGridPosition,this);
         }
         else
         {
             Debug.LogError("This Unit is not inside GRID " + transform);
         }
+    }
+    void Start()
+    {
+        
+        
         
     }
 
@@ -43,5 +46,9 @@ public class Unit : MonoBehaviour
     }
     public MoveAction GetMoveAction() {
         return moveAction;
+    }
+    public GridPosition GetCurrentGridPosition()
+    {
+        return currentGridPosition;
     }
 }

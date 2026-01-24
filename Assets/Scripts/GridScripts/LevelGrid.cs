@@ -32,11 +32,14 @@ public class LevelGrid : MonoBehaviour
             }
         }
     }
+    public bool TryGetGridObject(GridPosition gridPosition, out GridObject gridObject)=> grid.TryGetGridObject(gridPosition,out gridObject);
+    public GridPosition GetGridPosition(Vector3 worldPosition)=>grid.GetGridPosition(worldPosition);
+    public Vector3 GetWorldPosition(GridPosition gridPosition)=> grid.GetWorldPosition(gridPosition);
     public bool TryGetGridPosition(Vector3 worldPosition, out GridPosition gridPosition) => grid.TryGetGridPosition(worldPosition, out gridPosition);
     public void UnitMovedPosition(GridPosition oldPosition, GridPosition newPosition, Unit unit)
     {
         grid.TryAddUnit(newPosition,unit);
         grid.TryRemoveUnit(oldPosition,unit);
     }
-    
+    public bool TryAddUnit(GridPosition gridPosition, Unit unit)=>grid.TryAddUnit(gridPosition,unit);
 }

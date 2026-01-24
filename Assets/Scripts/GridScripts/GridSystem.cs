@@ -82,9 +82,16 @@ public class GridSystem
     }
     public bool TryGetGridObject(Vector3 worldPosition, out GridObject gridObject)
     {
-        if (IsInGrid(worldPosition))
+        var result = TryGetGridObject(GetGridPosition(worldPosition),out  GridObject resultGridObject);
+        gridObject = resultGridObject;
+        return result;
+    }
+
+    public bool TryGetGridObject(GridPosition gridPosition, out GridObject gridObject)
+    {
+        if (IsInGrid(gridPosition))
         {
-            gridObject = GetGridObject(GetGridPosition(worldPosition));
+            gridObject = GetGridObject(gridPosition);
             return true;
         }
         gridObject = null;
