@@ -10,6 +10,7 @@ public class CameraControl : MonoBehaviour
     [SerializeField] private int moveSpeed;
     [SerializeField] private int rotationSpeed;
     [SerializeField] private float zoomAmount;
+    [SerializeField] private float zoomSpeed=10;
     [SerializeField]private LayerMask layerMask;
     void Start()
     {
@@ -37,6 +38,6 @@ public class CameraControl : MonoBehaviour
             cinimachineOffset.y += Input.mouseScrollDelta.y * zoomAmount;
         }
         cinimachineOffset.y = Mathf.Clamp(cinimachineOffset.y, MIN_FOLLOW_OFFSET_Y, MAX_FOLLOW_OFFSET_Y);
-        cinemachineFollow.FollowOffset = Vector3.Lerp(cinemachineFollow.FollowOffset, cinimachineOffset, 10);
+        cinemachineFollow.FollowOffset = Vector3.Lerp(cinemachineFollow.FollowOffset, cinimachineOffset, zoomSpeed);
     }
 }
