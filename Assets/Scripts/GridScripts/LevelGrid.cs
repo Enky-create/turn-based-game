@@ -26,7 +26,6 @@ public class LevelGrid : MonoBehaviour
             {
                 var gridPosition = new GridPosition(x, z);
                 Vector3 pos = grid.GetWorldPosition(gridPosition);
-                Debug.Log("pos is " + pos);
                 VisualGridCell gridcell = Instantiate(visualGridCell, pos, Quaternion.identity);
                 gridcell.SetGridObject(grid.GetGridObject(gridPosition));
             }
@@ -42,4 +41,6 @@ public class LevelGrid : MonoBehaviour
         grid.TryRemoveUnit(oldPosition,unit);
     }
     public bool TryAddUnit(GridPosition gridPosition, Unit unit)=>grid.TryAddUnit(gridPosition,unit);
+    public int GetWidth() => grid.GetWidth();
+    public int GetLength() => grid.GetLength();
 }

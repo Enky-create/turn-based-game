@@ -52,7 +52,7 @@ public class MoveAction : MonoBehaviour
         return GetValidGridPositionList().Contains(gridPosition);
     }
     
-    private List<GridPosition> GetValidGridPositionList()
+    public List<GridPosition> GetValidGridPositionList()
     {
         var validPositions = new List<GridPosition>();
         for (int x= -maxMoveDistance; x<=maxMoveDistance; x++)

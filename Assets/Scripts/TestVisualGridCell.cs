@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class TestVisualGridCell : MonoBehaviour
 {
-    [SerializeField] private TextMeshPro textMeshPro;
-    [SerializeField]private GridObject gridObject;
-    void Update()
+    [SerializeField] private Unit unit;
+    [SerializeField] private GridSystemVisual gridSystemVisual;
+
+
+    private void Update()
     {
-        if(textMeshPro!=null)
-        textMeshPro.text=gridObject.ToString();
-    }
-    public void SetGridObject(GridObject gridObject)
-    {
-        this.gridObject = gridObject;
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            var validList = unit.GetComponent<MoveAction>().GetValidGridPositionList();
+            gridSystemVisual.HideAllGridPositions();
+            gridSystemVisual.ShowVisualsOnCertainPositions(validList);
+        }
     }
 }
