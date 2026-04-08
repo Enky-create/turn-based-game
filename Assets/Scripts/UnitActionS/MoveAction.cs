@@ -1,28 +1,26 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveAction : MonoBehaviour
+public class MoveAction : BaseAction
 {
     private GridPosition targetPosition;
     [SerializeField] private int maxMoveDistance;
-    private Unit unit;
-    private Animator animator;
+    
 
     [SerializeField] private int speed = 7;
     [SerializeField] private int rotationSpeed = 10;
 
-    private void Awake()
-    {
-        unit = GetComponent<Unit>();
-        animator = unit.GetAnimator();
-
-    }
     private void Start()
     {
         targetPosition = unit.GetCurrentGridPosition();
     }
     void Update()
     {
+        if (!isActive)
+        {
+            return;
+        }
         var stoppingDistance = 0.1;
         var worldPosition = LevelGrid.Instance.GetWorldPosition(targetPosition);
         if (Vector3.Distance(transform.position, worldPosition) > stoppingDistance)
@@ -36,6 +34,8 @@ public class MoveAction : MonoBehaviour
         else
         {
             animator.SetBool("IsWalking", false);
+            isActive=false;
+            OnActionDone();
         }
     }
     public void Move(Vector3 worldPosition)
@@ -44,6 +44,11 @@ public class MoveAction : MonoBehaviour
         if (IsValidGridPosition(newTargetPosition))
         {
             this.targetPosition = newTargetPosition;
+            isActive=true;
+        }
+        else
+        {
+            OnActionDone();
         }
     }
 
@@ -67,11 +72,15 @@ public class MoveAction : MonoBehaviour
                     if (gridObject.IsEmpty())
                     {
                         validPositions.Add(testGridPosition);
-                        Debug.Log(testGridPosition);
                     }
                 }
             }
         }
         return validPositions;
+    }
+    public override void Execute(Action onActionDone)
+    {
+        base.Execute(onActionDone);
+        Move(MouseWorld.MousePosition());
     }
 }

@@ -8,10 +8,11 @@ public class Unit : MonoBehaviour
     private GridPosition currentGridPosition;
     private LevelGrid levelGridInstance;
     private MoveAction moveAction;
-
+    private TurnAction turnAction;
     private void Awake()
     {
         moveAction = GetComponent<MoveAction>();
+        turnAction = GetComponent<TurnAction>();
         if (LevelGrid.Instance.TryGetGridPosition(transform.position, out GridPosition gridPosition))
         {
             currentGridPosition = gridPosition;
@@ -50,5 +51,9 @@ public class Unit : MonoBehaviour
     public GridPosition GetCurrentGridPosition()
     {
         return currentGridPosition;
+    }
+    public BaseAction GetTurnAction()
+    {
+        return turnAction;
     }
 }

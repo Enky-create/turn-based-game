@@ -3000,6 +3000,7 @@ GameObject:
   - component: {fileID: 5940316049713313063}
   - component: {fileID: 6611265592074257598}
   - component: {fileID: 6292555192912907954}
+  - component: {fileID: 7540619052711837251}
   m_Layer: 3
   m_Name: Unit
   m_TagString: Untagged
@@ -3073,3 +3074,16 @@ MonoBehaviour:
   maxMoveDistance: 1
   speed: 7
   rotationSpeed: 10
+--- !u!114 &7540619052711837251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9102668238669388506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40b04a57470e2f5b8ab20f5c670ba54d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TurnAction
+  rotationSpeed: 150
