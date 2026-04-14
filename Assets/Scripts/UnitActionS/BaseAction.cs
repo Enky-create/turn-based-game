@@ -4,6 +4,7 @@ using UnityEngine;
 public abstract class BaseAction : MonoBehaviour
 {
     protected bool isActive = false;
+    protected string actionName = "";
     protected Unit unit;
     protected Animator animator;
     protected Action OnActionDone;
@@ -17,5 +18,9 @@ public abstract class BaseAction : MonoBehaviour
     {
         OnActionDone = onActionDone;
         //isActive=true;
+    }
+    public string GetName()
+    {
+        return actionName;
     }
 }

@@ -5,6 +5,12 @@ public class TurnAction : BaseAction
 {
     [SerializeField] private float rotationSpeed=100;
 
+    protected override void Awake()
+    {
+        base.Awake();
+        actionName = "Spin";
+    }
+
     private float turnAmount=0;
     void Update()
     {

@@ -7,6 +7,7 @@ public class UnitActionSystem : MonoBehaviour
     [SerializeField] private Unit selectedUnit;
     [SerializeField] private LayerMask unitLayerMask;
     private bool isBusy=false;
+    private BaseAction selectedAction;
     public static UnitActionSystem Instance { get; private set; }
     public event EventHandler<SelectedUnitEventArgs> OnSelectedUnit;
     public class SelectedUnitEventArgs: EventArgs
@@ -23,9 +24,11 @@ public class UnitActionSystem : MonoBehaviour
             return;
         }
         Instance=this;
+        
     }
     private void Start()
     {
+        selectedAction=selectedUnit.GetMoveAction();
         OnSelectedUnit?.Invoke(this, new SelectedUnitEventArgs { selectedUnit = this.selectedUnit });
     }
     void Update()
@@ -38,7 +41,7 @@ public class UnitActionSystem : MonoBehaviour
         {
             if (TryHandleSelectionOfUnit()) return;
             SetIsBusy();
-            selectedUnit?.GetMoveAction().Execute(ClearIsbusy);
+            selectedAction?.Execute(ClearIsbusy);
             
         }
         if (Input.GetMouseButtonDown(1))
@@ -55,6 +58,7 @@ public class UnitActionSystem : MonoBehaviour
             if(hitInfo.transform.TryGetComponent<Unit>(out Unit unit))
             {
                 SetSelectedUnit(unit);
+                selectedAction=unit.GetMoveAction();
                 return true;
             }
         }
@@ -64,6 +68,10 @@ public class UnitActionSystem : MonoBehaviour
     {
         selectedUnit = unit;
         OnSelectedUnit?.Invoke(this, new SelectedUnitEventArgs { selectedUnit = unit });
+    }
+    public void SetSelectedAction(BaseAction baseAction)
+    {
+        selectedAction = baseAction;
     }
     private void SetIsBusy()
     {

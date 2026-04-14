@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MoveAction : BaseAction
@@ -10,7 +11,11 @@ public class MoveAction : BaseAction
 
     [SerializeField] private int speed = 7;
     [SerializeField] private int rotationSpeed = 10;
-
+    protected override void Awake()
+    {
+        base.Awake();
+        actionName = "Move";
+    }
     private void Start()
     {
         targetPosition = unit.GetCurrentGridPosition();
