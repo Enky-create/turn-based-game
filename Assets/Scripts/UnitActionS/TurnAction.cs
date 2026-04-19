@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class TurnAction : BaseAction
@@ -30,8 +31,32 @@ public class TurnAction : BaseAction
     }
     public override void Execute(Action onActionDone)
     {
+        if (LevelGrid.Instance.TryGetGridPosition(MouseWorld.MousePosition(), out GridPosition gridPosition))
+        {
+            if (unit.GetCurrentGridPosition() == gridPosition)
+            {
+                base.Execute(onActionDone);
+                isActive=true;
+            }
+            else
+            {
+                onActionDone();
+                return;
+            }
+        }
+        else
+        {
+            onActionDone();
+                return;
+        }
         
-        base.Execute(onActionDone);
-        isActive=true;
+        
+    }
+
+    public override List<GridPosition> GetValidGridPositionList()
+    {
+        var list = new List<GridPosition>();
+        list.Add(unit.GetCurrentGridPosition());
+        return list;
     }
 }

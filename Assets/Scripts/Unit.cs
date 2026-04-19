@@ -18,6 +18,7 @@ public class Unit : MonoBehaviour
         if (LevelGrid.Instance.TryGetGridPosition(transform.position, out GridPosition gridPosition))
         {
             currentGridPosition = gridPosition;
+            transform.position = LevelGrid.Instance.GetWorldPosition(currentGridPosition);
             LevelGrid.Instance.TryAddUnit(currentGridPosition,this);
         }
         else

@@ -225,5 +225,5 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f14fc9392fa1494b293f9979405ac402, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TestVisualGridCell
+  m_EditorClassIdentifier: Assembly-CSharp::VisualGridCell
   textMeshPro: {fileID: 5065020072341236416}

@@ -1,7 +1,7 @@
 using System;
 using Unity.VisualScripting;
 using UnityEngine;
-
+using UnityEngine.EventSystems;
 public class UnitActionSystem : MonoBehaviour
 {
     [SerializeField] private Unit selectedUnit;
@@ -10,6 +10,7 @@ public class UnitActionSystem : MonoBehaviour
     private BaseAction selectedAction;
     public static UnitActionSystem Instance { get; private set; }
     public event EventHandler<SelectedUnitEventArgs> OnSelectedUnit;
+    public event EventHandler OnSelectedActionChange;
     public class SelectedUnitEventArgs: EventArgs
     {
         public Unit selectedUnit;
@@ -29,6 +30,7 @@ public class UnitActionSystem : MonoBehaviour
     private void Start()
     {
         selectedAction=selectedUnit.GetMoveAction();
+        OnSelectedActionChange?.Invoke(this,EventArgs.Empty);
         OnSelectedUnit?.Invoke(this, new SelectedUnitEventArgs { selectedUnit = this.selectedUnit });
     }
     void Update()
@@ -37,17 +39,21 @@ public class UnitActionSystem : MonoBehaviour
         {
             return;
         }
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
         if (Input.GetMouseButtonDown(0))
         {
             if (TryHandleSelectionOfUnit()) return;
             SetIsBusy();
-            selectedAction?.Execute(ClearIsbusy);
+            selectedAction?.Execute(OnActionIsDone);
             
         }
         if (Input.GetMouseButtonDown(1))
         {
             SetIsBusy();
-            selectedUnit?.GetTurnAction().Execute(ClearIsbusy);
+            selectedUnit?.GetTurnAction().Execute(OnActionIsDone);
         }
     }
     private bool TryHandleSelectionOfUnit()
@@ -57,8 +63,9 @@ public class UnitActionSystem : MonoBehaviour
         {
             if(hitInfo.transform.TryGetComponent<Unit>(out Unit unit))
             {
+                if(selectedUnit==unit) return false;
                 SetSelectedUnit(unit);
-                selectedAction=unit.GetMoveAction();
+                SetSelectedAction(unit.GetMoveAction());
                 return true;
             }
         }
@@ -72,6 +79,11 @@ public class UnitActionSystem : MonoBehaviour
     public void SetSelectedAction(BaseAction baseAction)
     {
         selectedAction = baseAction;
+        OnSelectedActionChange?.Invoke(this,EventArgs.Empty);
+    }
+    public BaseAction GetSelectedAction()
+    {
+        return selectedAction;
     }
     private void SetIsBusy()
     {
@@ -80,6 +92,11 @@ public class UnitActionSystem : MonoBehaviour
     private void ClearIsbusy()
     {
         isBusy = false;
+    }
+    private void OnActionIsDone()
+    {
+        ClearIsbusy();
+        OnSelectedActionChange?.Invoke(this,EventArgs.Empty);
     }
     public Unit GetSelectedUnit()
     {

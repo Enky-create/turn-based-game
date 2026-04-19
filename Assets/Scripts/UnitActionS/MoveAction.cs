@@ -62,7 +62,7 @@ public class MoveAction : BaseAction
         return GetValidGridPositionList().Contains(gridPosition);
     }
     
-    public List<GridPosition> GetValidGridPositionList()
+    public override List<GridPosition> GetValidGridPositionList()
     {
         var validPositions = new List<GridPosition>();
         for (int x= -maxMoveDistance; x<=maxMoveDistance; x++)

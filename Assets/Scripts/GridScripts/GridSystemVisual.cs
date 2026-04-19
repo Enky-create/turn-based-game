@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -29,10 +30,16 @@ public class GridSystemVisual : MonoBehaviour
                 gridVisuals[x, z] = newGridVisualSingle;
             }
         }
+        UnitActionSystem.Instance.OnSelectedActionChange+= OnSelectedActionChange;
+        UpdateGridVisuals();
     }
-    private void Update()
+    private void OnSelectedActionChange(object sender, EventArgs args)
     {
         UpdateGridVisuals();
+    }
+    void OnDestroy()
+    {
+        UnitActionSystem.Instance.OnSelectedActionChange-= OnSelectedActionChange;
     }
 
     public void ShowVisualsOnCertainPositions(List<GridPosition> positions)
@@ -51,7 +58,7 @@ public class GridSystemVisual : MonoBehaviour
     }
     public void UpdateGridVisuals()
     {
-        var validList = UnitActionSystem.Instance.GetSelectedUnit().GetMoveAction().GetValidGridPositionList();
+        var validList = UnitActionSystem.Instance.GetSelectedAction().GetValidGridPositionList();
         HideAllGridPositions();
         ShowVisualsOnCertainPositions(validList);
     }
