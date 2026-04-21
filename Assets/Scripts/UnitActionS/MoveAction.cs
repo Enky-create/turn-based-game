@@ -50,6 +50,7 @@ public class MoveAction : BaseAction
         {
             this.targetPosition = newTargetPosition;
             isActive=true;
+            OnActionStart();
         }
         else
         {
@@ -83,9 +84,9 @@ public class MoveAction : BaseAction
         }
         return validPositions;
     }
-    public override void Execute(Action onActionDone)
+    public override void Execute(Action onActionDone, Action onActionStart)
     {
-        base.Execute(onActionDone);
+        base.Execute(onActionDone,onActionStart);
         Move(MouseWorld.MousePosition());
     }
 }

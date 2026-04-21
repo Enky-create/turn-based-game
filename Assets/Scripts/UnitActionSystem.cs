@@ -10,7 +10,13 @@ public class UnitActionSystem : MonoBehaviour
     private BaseAction selectedAction;
     public static UnitActionSystem Instance { get; private set; }
     public event EventHandler<SelectedUnitEventArgs> OnSelectedUnit;
+    public event EventHandler<IsBusyChangedEventArgs> OnIsBusyChanged;
     public event EventHandler OnSelectedActionChange;
+    public event EventHandler OnActionStart;
+    public class IsBusyChangedEventArgs : EventArgs
+    {
+        public bool isBusy;
+    }
     public class SelectedUnitEventArgs: EventArgs
     {
         public Unit selectedUnit;
@@ -46,14 +52,22 @@ public class UnitActionSystem : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             if (TryHandleSelectionOfUnit()) return;
+            
             SetIsBusy();
-            selectedAction?.Execute(OnActionIsDone);
+            selectedAction?.Execute(OnActionIsDone, () =>
+            {
+                selectedUnit.TrySubstractActionPoints(selectedAction.GetActionPointsCost());
+            });
+            OnActionStart?.Invoke(this,EventArgs.Empty);
             
         }
         if (Input.GetMouseButtonDown(1))
         {
             SetIsBusy();
-            selectedUnit?.GetTurnAction().Execute(OnActionIsDone);
+            selectedUnit?.GetTurnAction().Execute(OnActionIsDone,() =>
+            {
+                selectedUnit.TrySubstractActionPoints(selectedAction.GetActionPointsCost());
+            });
         }
     }
     private bool TryHandleSelectionOfUnit()
@@ -88,10 +102,12 @@ public class UnitActionSystem : MonoBehaviour
     private void SetIsBusy()
     {
         isBusy=true;
+        OnIsBusyChanged?.Invoke(this, new IsBusyChangedEventArgs{isBusy=isBusy});
     }
     private void ClearIsbusy()
     {
         isBusy = false;
+        OnIsBusyChanged?.Invoke(this, new IsBusyChangedEventArgs{isBusy=isBusy});
     }
     private void OnActionIsDone()
     {

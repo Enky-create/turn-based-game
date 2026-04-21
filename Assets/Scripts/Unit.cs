@@ -4,7 +4,7 @@ public class Unit : MonoBehaviour
 {
     
     [SerializeField] private Animator animator;
-    
+    [SerializeField] int actionPoints=2;
     private GridPosition currentGridPosition;
     private LevelGrid levelGridInstance;
     private MoveAction moveAction;
@@ -62,5 +62,36 @@ public class Unit : MonoBehaviour
     public BaseAction[] GetBaseActions()
     {
         return baseActionArray;
+    }
+    public void AddActionPoints(int points)
+    {
+        if (points < 0)
+        {
+            Debug.LogError("points have negative value");
+            return;
+        }
+        actionPoints += points;
+    }
+    public void SubstractActionPoints(int points)
+    {
+        if (points < 0)
+        {
+            Debug.LogError("points have negative value");
+            return;
+        }
+        actionPoints -= points;
+    }
+    public bool TrySubstractActionPoints(int points)
+    {
+        if (actionPoints < points)
+        {
+            return false;
+        }
+        SubstractActionPoints(points);
+        return true;
+    }
+    public int GetActionPoints()
+    {
+        return actionPoints;
     }
 }
