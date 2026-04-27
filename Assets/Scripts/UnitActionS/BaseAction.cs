@@ -16,17 +16,17 @@ public abstract class BaseAction : MonoBehaviour
         animator = unit.GetAnimator();
         
     }
-    public virtual void Execute(Action onActionDone, Action onActionStart)
+    
+    public virtual void Execute(Action onActionDone)
     {
         OnActionDone = onActionDone;
-        OnActionStart = onActionStart;
-        //isActive=true;
     }
     public string GetName()
     {
         return actionName;
     }
     public abstract List<GridPosition> GetValidGridPositionList();
+    public abstract bool CanExecute();
     public virtual int GetActionPointsCost()
     {
         return 1;

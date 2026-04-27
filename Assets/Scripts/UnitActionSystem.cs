@@ -52,22 +52,21 @@ public class UnitActionSystem : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             if (TryHandleSelectionOfUnit()) return;
-            
-            SetIsBusy();
-            selectedAction?.Execute(OnActionIsDone, () =>
+            var points = selectedAction.GetActionPointsCost();
+            if(!selectedAction.CanExecute())  return;
+            if (!selectedUnit.TrySubstractActionPoints(points))
             {
-                selectedUnit.TrySubstractActionPoints(selectedAction.GetActionPointsCost());
-            });
+                return;
+            }
+            SetIsBusy();
+            selectedAction?.Execute(OnActionIsDone);
             OnActionStart?.Invoke(this,EventArgs.Empty);
             
         }
         if (Input.GetMouseButtonDown(1))
         {
             SetIsBusy();
-            selectedUnit?.GetTurnAction().Execute(OnActionIsDone,() =>
-            {
-                selectedUnit.TrySubstractActionPoints(selectedAction.GetActionPointsCost());
-            });
+            selectedUnit?.GetTurnAction().Execute(OnActionIsDone);
         }
     }
     private bool TryHandleSelectionOfUnit()

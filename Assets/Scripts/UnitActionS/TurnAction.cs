@@ -29,29 +29,10 @@ public class TurnAction : BaseAction
             turnAmount=0;
         }
     }
-    public override void Execute(Action onActionDone, Action onActionStart)
+    public override void Execute(Action onActionDone)
     {
-        if (LevelGrid.Instance.TryGetGridPosition(MouseWorld.MousePosition(), out GridPosition gridPosition))
-        {
-            if (unit.GetCurrentGridPosition() == gridPosition)
-            {
-                OnActionDone=onActionDone;
-                isActive=true;
-                onActionStart();
-            }
-            else
-            {
-                onActionDone();
-                return;
-            }
-        }
-        else
-        {
-            onActionDone();
-                return;
-        }
-        
-        
+        OnActionDone=onActionDone;
+        isActive=true;
     }
 
     public override List<GridPosition> GetValidGridPositionList()
@@ -63,5 +44,25 @@ public class TurnAction : BaseAction
     public override int GetActionPointsCost()
     {
         return 2;
+    }
+
+    public override bool CanExecute()
+    {
+        if (LevelGrid.Instance.TryGetGridPosition(MouseWorld.MousePosition(), out GridPosition gridPosition))
+        {
+            if (unit.GetCurrentGridPosition() == gridPosition)
+            {
+                
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
     }
 }

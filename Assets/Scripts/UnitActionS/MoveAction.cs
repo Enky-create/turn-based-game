@@ -7,8 +7,6 @@ public class MoveAction : BaseAction
 {
     private GridPosition targetPosition;
     [SerializeField] private int maxMoveDistance;
-    
-
     [SerializeField] private int speed = 7;
     [SerializeField] private int rotationSpeed = 10;
     protected override void Awake()
@@ -46,16 +44,8 @@ public class MoveAction : BaseAction
     public void Move(Vector3 worldPosition)
     {
         var newTargetPosition = LevelGrid.Instance.GetGridPosition(worldPosition);
-        if (IsValidGridPosition(newTargetPosition))
-        {
-            this.targetPosition = newTargetPosition;
-            isActive=true;
-            OnActionStart();
-        }
-        else
-        {
-            OnActionDone();
-        }
+        this.targetPosition = newTargetPosition;
+        isActive=true;
     }
 
     private bool IsValidGridPosition(GridPosition gridPosition)
@@ -84,9 +74,20 @@ public class MoveAction : BaseAction
         }
         return validPositions;
     }
-    public override void Execute(Action onActionDone, Action onActionStart)
+    public override void Execute(Action onActionDone)
     {
-        base.Execute(onActionDone,onActionStart);
+        base.Execute(onActionDone);
         Move(MouseWorld.MousePosition());
+    }
+
+    public override bool CanExecute()
+    {
+        var worldPosition = MouseWorld.MousePosition();
+        var newTargetPosition = LevelGrid.Instance.GetGridPosition(worldPosition);
+        if (IsValidGridPosition(newTargetPosition))
+        {
+            return true;
+        }
+        return false;
     }
 }
