@@ -12,6 +12,7 @@ public class ActionPointsUI : MonoBehaviour
     {
         UnitActionSystem.Instance.OnActionStart += Instance_OnActionStarts;
         UnitActionSystem.Instance.OnSelectedUnit += Instance_OnActionStarts;
+        TurnSystem.Instance.OnTurnChanged += TurnSystem_OnTurnChanged;
         UpdateActionPointsUI(); 
     }
     void OnDestroy()
@@ -19,6 +20,10 @@ public class ActionPointsUI : MonoBehaviour
         UnitActionSystem.Instance.OnActionStart -= Instance_OnActionStarts;
     }
     private void Instance_OnActionStarts(object sender,EventArgs e)
+    {
+        UpdateActionPointsUI();
+    }
+    private void TurnSystem_OnTurnChanged(object sender, EventArgs e)
     {
         UpdateActionPointsUI();
     }

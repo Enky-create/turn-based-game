@@ -1,10 +1,12 @@
+using System;
 using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
-    
+    public static event EventHandler OnAnyActionPointChange;   
     [SerializeField] private Animator animator;
-    [SerializeField] int actionPoints=2;
+    [SerializeField] int maxActionPoints=2;
+    [SerializeField] int actionPoints;
     private GridPosition currentGridPosition;
     private LevelGrid levelGridInstance;
     private MoveAction moveAction;
@@ -12,6 +14,7 @@ public class Unit : MonoBehaviour
     private BaseAction[] baseActionArray;
     private void Awake()
     {
+        ResetActionPoints();
         moveAction = GetComponent<MoveAction>();
         turnAction = GetComponent<TurnAction>();
         baseActionArray = GetComponents<BaseAction>();
@@ -28,7 +31,7 @@ public class Unit : MonoBehaviour
     }
     void Start()
     {
-        
+        TurnSystem.Instance.OnTurnChanged+=TurnSystem_OnTurnChanged;
         
         
     }
@@ -43,6 +46,15 @@ public class Unit : MonoBehaviour
             LevelGrid.Instance.UnitMovedPosition(currentGridPosition, gridPosition, this);
             currentGridPosition = gridPosition;
         }
+    }
+    private void TurnSystem_OnTurnChanged(object sender, EventArgs e)
+    {
+        ResetActionPoints();
+    }
+    private void ResetActionPoints()
+    {
+        actionPoints = maxActionPoints;
+        OnAnyActionPointChange?.Invoke(this, EventArgs.Empty);
     }
     public Animator GetAnimator()
     {
