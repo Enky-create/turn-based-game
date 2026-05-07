@@ -1,4 +1,5 @@
 using System;
+using NUnit.Framework;
 using UnityEngine;
 
 public class Unit : MonoBehaviour
@@ -7,6 +8,7 @@ public class Unit : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] int maxActionPoints=2;
     [SerializeField] int actionPoints;
+    [SerializeField] private bool isEnemy=false;
     private GridPosition currentGridPosition;
     private LevelGrid levelGridInstance;
     private MoveAction moveAction;
@@ -14,7 +16,7 @@ public class Unit : MonoBehaviour
     private BaseAction[] baseActionArray;
     private void Awake()
     {
-        ResetActionPoints();
+        
         moveAction = GetComponent<MoveAction>();
         turnAction = GetComponent<TurnAction>();
         baseActionArray = GetComponents<BaseAction>();
@@ -28,12 +30,13 @@ public class Unit : MonoBehaviour
         {
             Debug.LogError("This Unit is not inside GRID " + transform);
         }
+        
     }
     void Start()
     {
         TurnSystem.Instance.OnTurnChanged+=TurnSystem_OnTurnChanged;
         
-        
+        ResetActionPoints();
     }
 
     // Update is called once per frame
@@ -53,8 +56,14 @@ public class Unit : MonoBehaviour
     }
     private void ResetActionPoints()
     {
-        actionPoints = maxActionPoints;
-        OnAnyActionPointChange?.Invoke(this, EventArgs.Empty);
+        if(IsEnemy() && !TurnSystem.Instance.IsPlayerTurn() ||
+            !IsEnemy() && TurnSystem.Instance.IsPlayerTurn()
+        )
+        {
+            actionPoints = maxActionPoints;
+            OnAnyActionPointChange?.Invoke(this, EventArgs.Empty);
+        }
+        
     }
     public Animator GetAnimator()
     {
@@ -105,5 +114,9 @@ public class Unit : MonoBehaviour
     public int GetActionPoints()
     {
         return actionPoints;
+    }
+    public bool IsEnemy()
+    {
+        return isEnemy;
     }
 }

@@ -18,6 +18,8 @@ public class ActionPointsUI : MonoBehaviour
     void OnDestroy()
     {
         UnitActionSystem.Instance.OnActionStart -= Instance_OnActionStarts;
+        UnitActionSystem.Instance.OnSelectedUnit -= Instance_OnActionStarts;
+        TurnSystem.Instance.OnTurnChanged -= TurnSystem_OnTurnChanged;
     }
     private void Instance_OnActionStarts(object sender,EventArgs e)
     {
