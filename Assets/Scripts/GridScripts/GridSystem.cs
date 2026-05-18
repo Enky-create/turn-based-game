@@ -76,6 +76,10 @@ public class GridSystem
     {
         return length;
     }
+    public float GetCellSize()
+    {
+        return cellSize;
+    }
     public GridObject GetGridObject(GridPosition gridPosition)
     {
         return gridObjects[gridPosition.x,gridPosition.z];

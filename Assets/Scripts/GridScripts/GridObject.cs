@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting.ReorderableList;
 using UnityEngine;
 
@@ -35,5 +36,13 @@ public class GridObject
     public void RemoveUnit(Unit unit)
     {
         unitList.Remove(unit);
+    }
+    public Unit GetFirstUnitInList()
+    {
+        if (unitList.Count > 0)
+        {
+            return unitList[0];
+        }
+        return null;
     }
 }

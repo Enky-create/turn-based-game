@@ -119,4 +119,8 @@ public class Unit : MonoBehaviour
     {
         return isEnemy;
     }
+    public void Damage(float dmg)
+    {
+        Debug.Log($"{transform} took {dmg}");
+    }
 }

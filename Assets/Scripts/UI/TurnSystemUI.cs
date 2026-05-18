@@ -17,14 +17,17 @@ public class TurnSystemUI : MonoBehaviour
             turnSystemInstance.NextTurn();
             currentTurnText.text = $"Turn: {turnSystemInstance.GetTurnCount()}";
         });
+        
+        Unit.OnAnyActionPointChange += TurnSystem_OnTurnChanged;
         UpdateTurnText();
         UpdateEnemyTurn();
-        Unit.OnAnyActionPointChange += TurnSystem_OnTurnChanged;
+        UpdateEndOfTurnButton();
     }
     private void TurnSystem_OnTurnChanged(object sender, EventArgs e)
     {
         UpdateTurnText();
         UpdateEnemyTurn();
+        UpdateEndOfTurnButton();
     }
     private void UpdateTurnText()
     {
@@ -33,5 +36,9 @@ public class TurnSystemUI : MonoBehaviour
     private void UpdateEnemyTurn()
     {
         enemyTurnBanner.SetActive(!TurnSystem.Instance.IsPlayerTurn());
+    }
+    private void UpdateEndOfTurnButton()
+    {
+        endOfTurnButton.gameObject.SetActive(TurnSystem.Instance.IsPlayerTurn());
     }
 }
