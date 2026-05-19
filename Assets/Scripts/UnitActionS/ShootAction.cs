@@ -16,11 +16,12 @@ public class ShootAction : BaseAction
         Shooting,
         Idling,
     }
-    private ShootStateEnum currentState = ShootStateEnum.Idling;
+    private ShootStateEnum currentState ;
     private Vector3 aimDirection;
     void Start()
     {
         actionName = "Shoot";
+        currentState = ShootStateEnum.Idling;
     }
 
     // Update is called once per frame
@@ -30,19 +31,27 @@ public class ShootAction : BaseAction
         {
             return;
         }
-        timer-=Time.deltaTime;
+        
         switch (currentState)
         {
+            case ShootStateEnum.Idling:
+                // do nothing
+            break;
             case ShootStateEnum.Aiming:
                 unit.transform.forward = Vector3.Lerp(
                     transform.forward,
                     aimDirection,
                     aimingSpeed*Time.deltaTime
                     );
-                
+                    break;
+            case ShootStateEnum.Shooting:
+                targetUnit.Damage(damage);
                 
             break;
+                
+            
         }
+        timer-=Time.deltaTime;
         if (timer <= 0)
         {
             NextState();
@@ -54,21 +63,21 @@ public class ShootAction : BaseAction
         switch (currentState)
         {
             case ShootStateEnum.Idling:
-                timer = .5f;
+                timer = 1.5f;
                 currentState=ShootStateEnum.Aiming;
             break;
             case ShootStateEnum.Aiming:
-                timer = 2f;
+                timer = .1f;
                 currentState=ShootStateEnum.Shooting;
             break;
             case ShootStateEnum.Shooting:
-                timer = .5f;
-                targetUnit.Damage(damage);
+                timer = .1f;
                 currentState=ShootStateEnum.Idling;
                 OnActionDone?.Invoke();
                 isActive = false;
             break;
         }
+        Debug.Log($"Current state is {currentState}");
     }
 
     public override bool CanExecute()

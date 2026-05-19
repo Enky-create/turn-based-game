@@ -124,7 +124,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5940316049713313063, guid: 2fd1f17fde0142243945721aafaa1e2b, type: 3}
   m_PrefabInstance: {fileID: 519532508}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 604845419}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f1993d069c5044044b74e9e4d612220f, type: 3}
@@ -754,13 +754,36 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9102668238669388506, guid: 2fd1f17fde0142243945721aafaa1e2b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 604845421}
   m_SourcePrefab: {fileID: 100100000, guid: 2fd1f17fde0142243945721aafaa1e2b, type: 3}
 --- !u!224 &600028847 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6584126934392473876, guid: 0168732490d0d995096e7cb2d6d70b3b, type: 3}
   m_PrefabInstance: {fileID: 1777049889}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &604845419 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9102668238669388506, guid: 2fd1f17fde0142243945721aafaa1e2b, type: 3}
+  m_PrefabInstance: {fileID: 519532508}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &604845421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 604845419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ec6b09844f3e62a8beb346c6dcd441e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShootAction
+  maxShootDistance: 4
+  damage: 3
+  aimingSpeed: 10
 --- !u!1 &630089424
 GameObject:
   m_ObjectHideFlags: 0
