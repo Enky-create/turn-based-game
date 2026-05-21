@@ -37,11 +37,10 @@ public class MoveAction : BaseAction
         else
         {
             animator.SetBool("IsWalking", false);
-            isActive=false;
-            OnActionDone();
+            ActionEnd();
         }
     }
-    public void Move(Vector3 worldPosition)
+    private void Move(Vector3 worldPosition)
     {
         var newTargetPosition = LevelGrid.Instance.GetGridPosition(worldPosition);
         this.targetPosition = newTargetPosition;

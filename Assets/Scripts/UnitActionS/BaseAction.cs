@@ -9,7 +9,6 @@ public abstract class BaseAction : MonoBehaviour
     protected Unit unit;
     protected Animator animator;
     protected Action OnActionDone;
-    protected Action OnActionStart;
     protected virtual void Awake() 
     {
         unit = GetComponent<Unit>();
@@ -30,5 +29,13 @@ public abstract class BaseAction : MonoBehaviour
     public virtual int GetActionPointsCost()
     {
         return 1;
+    }
+    protected void ActionStart(Action onActionDone){
+        isActive=true;
+        OnActionDone=onActionDone;
+    }
+    protected void ActionEnd(){
+        isActive=false;
+        OnActionDone?.Invoke();
     }
 }

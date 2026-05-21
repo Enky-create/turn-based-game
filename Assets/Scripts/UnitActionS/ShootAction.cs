@@ -7,21 +7,22 @@ public class ShootAction : BaseAction
 {
     [SerializeField] private int maxShootDistance;
     [SerializeField] private float damage = 3f;
-    private Unit targetUnit;
     [SerializeField] private int aimingSpeed = 10;
+    private Unit targetUnit;
     private float timer;
+    private ShootStateEnum currentState;
+    private Vector3 aimDirection;
+    private bool canShoot=false;
     private enum ShootStateEnum
     {
         Aiming,
         Shooting,
-        Idling,
+        CoolOff,
     }
-    private ShootStateEnum currentState ;
-    private Vector3 aimDirection;
+    
     void Start()
     {
         actionName = "Shoot";
-        currentState = ShootStateEnum.Idling;
     }
 
     // Update is called once per frame
@@ -34,9 +35,7 @@ public class ShootAction : BaseAction
         
         switch (currentState)
         {
-            case ShootStateEnum.Idling:
-                // do nothing
-            break;
+            
             case ShootStateEnum.Aiming:
                 unit.transform.forward = Vector3.Lerp(
                     transform.forward,
@@ -45,7 +44,12 @@ public class ShootAction : BaseAction
                     );
                     break;
             case ShootStateEnum.Shooting:
-                targetUnit.Damage(damage);
+                if(canShoot){
+                    targetUnit.Damage(damage);
+                    canShoot = false;
+                }
+            break;
+            case ShootStateEnum.CoolOff:
                 
             break;
                 
@@ -62,19 +66,16 @@ public class ShootAction : BaseAction
     {
         switch (currentState)
         {
-            case ShootStateEnum.Idling:
-                timer = 1.5f;
-                currentState=ShootStateEnum.Aiming;
-            break;
             case ShootStateEnum.Aiming:
-                timer = .1f;
+                timer = 1f;
                 currentState=ShootStateEnum.Shooting;
             break;
             case ShootStateEnum.Shooting:
-                timer = .1f;
-                currentState=ShootStateEnum.Idling;
-                OnActionDone?.Invoke();
-                isActive = false;
+                timer = .3f;
+                currentState = ShootStateEnum.CoolOff;
+            break;
+            case ShootStateEnum.CoolOff:
+                ActionEnd();
             break;
         }
         Debug.Log($"Current state is {currentState}");
@@ -92,15 +93,16 @@ public class ShootAction : BaseAction
     }
     public override void Execute(Action onActionDone)
     {
-        OnActionDone=onActionDone;
+        ActionStart(onActionDone);
         if (LevelGrid.Instance.TryGetGridObject(MouseWorld.MousePosition(), out GridObject gridObject))
         {
             this.targetUnit = gridObject.GetFirstUnitInList();
             aimDirection=(targetUnit.transform.position - unit.transform.position).normalized;
             
         }
-        
-        isActive=true;
+        canShoot = true;
+        currentState = ShootStateEnum.Aiming;
+        timer = 1f;
     }
     public override List<GridPosition> GetValidGridPositionList()
     {

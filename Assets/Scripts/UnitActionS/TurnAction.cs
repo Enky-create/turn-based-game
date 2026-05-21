@@ -24,15 +24,13 @@ public class TurnAction : BaseAction
         turnAmount+=addAmount;
         if (turnAmount >= 360f)
         {
-            isActive=false;
-            OnActionDone();
+            ActionEnd();
             turnAmount=0;
         }
     }
     public override void Execute(Action onActionDone)
     {
-        OnActionDone=onActionDone;
-        isActive=true;
+        ActionStart(onActionDone);
     }
 
     public override List<GridPosition> GetValidGridPositionList()

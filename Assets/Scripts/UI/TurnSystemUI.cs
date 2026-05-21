@@ -15,7 +15,6 @@ public class TurnSystemUI : MonoBehaviour
         turnSystemInstance.OnTurnChanged+=TurnSystem_OnTurnChanged;
         endOfTurnButton.onClick.AddListener(()=>{
             turnSystemInstance.NextTurn();
-            currentTurnText.text = $"Turn: {turnSystemInstance.GetTurnCount()}";
         });
         
         Unit.OnAnyActionPointChange += TurnSystem_OnTurnChanged;
