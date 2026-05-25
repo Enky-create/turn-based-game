@@ -30,13 +30,13 @@ public class MoveAction : BaseAction
         {
             Vector3 moveDirection = (worldPosition - this.transform.position).normalized;
             this.transform.position += moveDirection * speed * Time.deltaTime;
-            animator.SetBool("IsWalking", true);
+            OnActionStart?.Invoke(this, EventArgs.Empty);
             transform.forward = Vector3.Lerp(transform.forward, moveDirection, Time.deltaTime * rotationSpeed);
 
         }
         else
         {
-            animator.SetBool("IsWalking", false);
+            OnActionEnd?.Invoke(this,EventArgs.Empty);
             ActionEnd();
         }
     }

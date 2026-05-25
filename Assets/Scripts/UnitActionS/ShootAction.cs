@@ -8,6 +8,9 @@ public class ShootAction : BaseAction
     [SerializeField] private int maxShootDistance;
     [SerializeField] private float damage = 3f;
     [SerializeField] private int aimingSpeed = 10;
+    public class ShootEventArgs: EventArgs{
+        public Transform target;
+    }
     private Unit targetUnit;
     private float timer;
     private ShootStateEnum currentState;
@@ -46,6 +49,10 @@ public class ShootAction : BaseAction
             case ShootStateEnum.Shooting:
                 if(canShoot){
                     targetUnit.Damage(damage);
+                    OnActionStart?.Invoke(this, new ShootEventArgs
+                    {
+                        target = targetUnit.transform,
+                    });
                     canShoot = false;
                 }
             break;

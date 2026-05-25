@@ -9,10 +9,11 @@ public abstract class BaseAction : MonoBehaviour
     protected Unit unit;
     protected Animator animator;
     protected Action OnActionDone;
+    public EventHandler OnActionStart;
+    public EventHandler OnActionEnd;
     protected virtual void Awake() 
     {
         unit = GetComponent<Unit>();
-        animator = unit.GetAnimator();
         
     }
     
