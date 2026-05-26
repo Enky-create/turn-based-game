@@ -74,11 +74,11 @@ public class ShootAction : BaseAction
         switch (currentState)
         {
             case ShootStateEnum.Aiming:
-                timer = 1f;
+                timer = 2f;
                 currentState=ShootStateEnum.Shooting;
             break;
             case ShootStateEnum.Shooting:
-                timer = .3f;
+                timer = .1f;
                 currentState = ShootStateEnum.CoolOff;
             break;
             case ShootStateEnum.CoolOff:
