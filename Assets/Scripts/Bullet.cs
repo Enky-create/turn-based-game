@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [SerializeField] TrailRenderer trailRenderer;
+    [SerializeField] private TrailRenderer trailRenderer;
+    [SerializeField] private ParticleSystem bulletVFX;
     private bool isActive;
     private Vector3 targetDirection;
     private Vector3 targetPosition;
@@ -31,6 +32,7 @@ public class Bullet : MonoBehaviour
         {
             transform.position = targetPosition;
             trailRenderer.transform.parent=null;
+            Instantiate(bulletVFX, transform.position,Quaternion.identity);
             Destroy(gameObject);
         }
     }

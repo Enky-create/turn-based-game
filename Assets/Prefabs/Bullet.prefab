@@ -197,3 +197,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bullet
   trailRenderer: {fileID: 2517300657740180167}
+  bulletVFX: {fileID: 395946215528821446, guid: a90b2071474a17408835ed173439b793, type: 3}

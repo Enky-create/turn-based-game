@@ -3048,6 +3048,7 @@ GameObject:
   - component: {fileID: 6292555192912907954}
   - component: {fileID: 7540619052711837251}
   - component: {fileID: 932882424649206906}
+  - component: {fileID: 7460463347776925695}
   m_Layer: 3
   m_Name: Unit
   m_TagString: Untagged
@@ -3151,3 +3152,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UnitAnimator
   emitterTransform: {fileID: 7506954628550785771}
   bullet: {fileID: 6469059058814085959, guid: cd08212b53309ed399aff2e5a1937dfe, type: 3}
+--- !u!114 &7460463347776925695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9102668238669388506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ec6b09844f3e62a8beb346c6dcd441e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShootAction
+  maxShootDistance: 5
+  damage: 3
+  aimingSpeed: 10
