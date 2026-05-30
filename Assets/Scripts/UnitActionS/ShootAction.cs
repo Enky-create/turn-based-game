@@ -6,7 +6,7 @@ using UnityEngine.Animations;
 public class ShootAction : BaseAction
 {
     [SerializeField] private int maxShootDistance;
-    [SerializeField] private float damage = 3f;
+    [SerializeField] private int damage = 3;
     [SerializeField] private int aimingSpeed = 10;
     public class ShootEventArgs: EventArgs{
         public Transform target;

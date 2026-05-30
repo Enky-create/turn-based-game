@@ -14,9 +14,10 @@ public class Unit : MonoBehaviour
     private MoveAction moveAction;
     private TurnAction turnAction;
     private BaseAction[] baseActionArray;
+    private HealthComponent healthComponent;
     private void Awake()
     {
-        
+        healthComponent = GetComponent<HealthComponent>();
         moveAction = GetComponent<MoveAction>();
         turnAction = GetComponent<TurnAction>();
         baseActionArray = GetComponents<BaseAction>();
@@ -35,7 +36,7 @@ public class Unit : MonoBehaviour
     void Start()
     {
         TurnSystem.Instance.OnTurnChanged+=TurnSystem_OnTurnChanged;
-        
+        healthComponent.OnDeath += HealthComponent_OnDeath;
         ResetActionPoints();
     }
 
@@ -49,6 +50,11 @@ public class Unit : MonoBehaviour
             LevelGrid.Instance.UnitMovedPosition(currentGridPosition, gridPosition, this);
             currentGridPosition = gridPosition;
         }
+    }
+    private void HealthComponent_OnDeath(object sender, EventArgs e)
+    {
+        LevelGrid.Instance.TryRemoveUnit(currentGridPosition,this);
+        Destroy(gameObject);
     }
     private void TurnSystem_OnTurnChanged(object sender, EventArgs e)
     {
@@ -119,8 +125,13 @@ public class Unit : MonoBehaviour
     {
         return isEnemy;
     }
-    public void Damage(float dmg)
+    public void Damage(int dmg)
     {
-        Debug.Log($"{transform} took {dmg}");
+        healthComponent.TakeDamage(dmg);
+    }
+    void OnDestroy()
+    {
+        TurnSystem.Instance.OnTurnChanged-=TurnSystem_OnTurnChanged;
+        healthComponent.OnDeath -= HealthComponent_OnDeath;
     }
 }

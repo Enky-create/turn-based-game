@@ -43,6 +43,7 @@ public class LevelGrid : MonoBehaviour
         grid.TryRemoveUnit(oldPosition,unit);
     }
     public bool TryAddUnit(GridPosition gridPosition, Unit unit)=>grid.TryAddUnit(gridPosition,unit);
+    public bool TryRemoveUnit(GridPosition gridPosition, Unit unit)=>grid.TryRemoveUnit(gridPosition,unit);
     public int GetWidth() => grid.GetWidth();
     public int GetLength() => grid.GetLength();
     public float GetCellSize() => grid.GetCellSize();
