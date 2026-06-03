@@ -18,7 +18,7 @@ public class HealthComponent : MonoBehaviour
         {
             health = this.health
         });
-        if (health < 0)
+        if (health <= 0)
         {
             health = 0;
             OnDeath?.Invoke(this,EventArgs.Empty);

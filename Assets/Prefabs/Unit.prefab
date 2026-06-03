@@ -3348,6 +3348,7 @@ GameObject:
   - component: {fileID: 932882424649206906}
   - component: {fileID: 7460463347776925695}
   - component: {fileID: 4190434582052942730}
+  - component: {fileID: 2076181760397878168}
   m_Layer: 3
   m_Name: Unit
   m_TagString: Untagged
@@ -3481,3 +3482,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HealthComponent
   health: 10
   maxHealth: 10
+--- !u!114 &2076181760397878168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9102668238669388506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0f038e263637a777879bb33d8dd5ad8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RagdollSpawner
+  ragdolTransform: {fileID: 6143492360995303895, guid: 94e8eaaa4e026eb66881a559ac408ff2, type: 3}
+  originalBone: {fileID: 755666466870557112}
