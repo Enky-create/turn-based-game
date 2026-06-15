@@ -34,7 +34,6 @@ public class UnitAnimator : MonoBehaviour
     public void ShootBullet()
     {
         var bulletInstance=Instantiate(bullet,emitterTransform.position,Quaternion.identity).GetComponent<Bullet>();
-        Debug.Log($"Emitter position {emitterTransform.position}");
         
         bulletInstance.Setup(shootTargetPosition);
     }

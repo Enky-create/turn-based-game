@@ -11,7 +11,11 @@ PrefabInstance:
     - target: {fileID: 829865250441881780, guid: 2fd1f17fde0142243945721aafaa1e2b, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: c70e075a2144ba04784d74b7b2889fd3, type: 2}
+      objectReference: {fileID: 2100000, guid: 7d22fc6b9a431b043a917fb89a80bcfc, type: 2}
+    - target: {fileID: 2076181760397878168, guid: 2fd1f17fde0142243945721aafaa1e2b, type: 3}
+      propertyPath: ragdolTransform
+      value: 
+      objectReference: {fileID: 3879040458035042531, guid: b9b6e7a4f5cace9719ed9e31edaec509, type: 3}
     - target: {fileID: 5940316049713313063, guid: 2fd1f17fde0142243945721aafaa1e2b, type: 3}
       propertyPath: isEnemy
       value: 1

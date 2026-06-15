@@ -67,11 +67,6 @@ public class UnitActionSystem : MonoBehaviour
             OnActionStart?.Invoke(this,EventArgs.Empty);
             
         }
-        if (Input.GetMouseButtonDown(1))
-        {
-            SetIsBusy();
-            selectedUnit?.GetTurnAction().Execute(OnActionIsDone);
-        }
     }
     private bool TryHandleSelectionOfUnit()
     {
