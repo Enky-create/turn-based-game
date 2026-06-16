@@ -74,7 +74,7 @@ public class ShootAction : BaseAction
         switch (currentState)
         {
             case ShootStateEnum.Aiming:
-                timer = 0.15f;
+                timer = 0.3f;
                 currentState=ShootStateEnum.Shooting;
             break;
             case ShootStateEnum.Shooting:
@@ -101,7 +101,7 @@ public class ShootAction : BaseAction
     }
     public override void Execute(Action onActionDone)
     {
-        ActionStart(onActionDone);
+        
         if (LevelGrid.Instance.TryGetGridObject(MouseWorld.MousePosition(), out GridObject gridObject))
         {
             this.targetUnit = gridObject.GetFirstUnitInList();
@@ -111,6 +111,7 @@ public class ShootAction : BaseAction
         canShoot = true;
         currentState = ShootStateEnum.Aiming;
         timer = 0.2f;
+        ActionStart(onActionDone);
     }
     public override List<GridPosition> GetValidGridPositionList()
     {
@@ -148,5 +149,12 @@ public class ShootAction : BaseAction
     {
         return 2;
     }
-    
+    public Unit GetUnit()
+    {
+        return unit;
+    }
+    public Unit GetTargetUnit()
+    {
+        return targetUnit;
+    }
 }

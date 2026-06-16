@@ -44,7 +44,7 @@ public class MoveAction : BaseAction
     {
         var newTargetPosition = LevelGrid.Instance.GetGridPosition(worldPosition);
         this.targetPosition = newTargetPosition;
-        isActive=true;
+        
     }
 
     private bool IsValidGridPosition(GridPosition gridPosition)
@@ -75,8 +75,8 @@ public class MoveAction : BaseAction
     }
     public override void Execute(Action onActionDone)
     {
-        base.Execute(onActionDone);
         Move(MouseWorld.MousePosition());
+        ActionStart(onActionDone);
     }
 
     public override bool CanExecute()
