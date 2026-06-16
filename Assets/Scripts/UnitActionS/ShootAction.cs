@@ -48,7 +48,7 @@ public class ShootAction : BaseAction
                     break;
             case ShootStateEnum.Shooting:
                 if(canShoot){
-                    targetUnit.Damage(damage);
+                    
                     OnActionStart?.Invoke(this, new ShootEventArgs
                     {
                         target = targetUnit.transform,
@@ -74,7 +74,7 @@ public class ShootAction : BaseAction
         switch (currentState)
         {
             case ShootStateEnum.Aiming:
-                timer = 2f;
+                timer = 0.15f;
                 currentState=ShootStateEnum.Shooting;
             break;
             case ShootStateEnum.Shooting:
@@ -82,6 +82,7 @@ public class ShootAction : BaseAction
                 currentState = ShootStateEnum.CoolOff;
             break;
             case ShootStateEnum.CoolOff:
+                targetUnit.Damage(damage);
                 ActionEnd();
             break;
         }
@@ -109,7 +110,7 @@ public class ShootAction : BaseAction
         }
         canShoot = true;
         currentState = ShootStateEnum.Aiming;
-        timer = 1f;
+        timer = 0.2f;
     }
     public override List<GridPosition> GetValidGridPositionList()
     {
