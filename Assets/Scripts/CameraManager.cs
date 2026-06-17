@@ -9,7 +9,7 @@ public class CameraManager : MonoBehaviour
     void Start()
     {
         BaseAction.OnAnyActionStart+=BaseAction_OnAnyActionStart;
-        BaseAction.OnAnyActionStart+=BaseAction_OnAnyActionEnd;
+        BaseAction.OnAnyActionEnd+=BaseAction_OnAnyActionEnd;
         Hide();
     }
     private void BaseAction_OnAnyActionEnd(object sender, EventArgs e)

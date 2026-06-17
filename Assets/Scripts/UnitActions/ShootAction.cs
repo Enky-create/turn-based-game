@@ -110,7 +110,7 @@ public class ShootAction : BaseAction
         }
         canShoot = true;
         currentState = ShootStateEnum.Aiming;
-        timer = 0.2f;
+        timer = 0.5f;
         ActionStart(onActionDone);
     }
     public override List<GridPosition> GetValidGridPositionList()
