@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using NUnit.Framework;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Unit : MonoBehaviour
@@ -46,9 +48,10 @@ public class Unit : MonoBehaviour
         var isValid=LevelGrid.Instance.TryGetGridPosition(transform.position, out GridPosition gridPosition);
         if (isValid && currentGridPosition != gridPosition)
         {
-
-            LevelGrid.Instance.UnitMovedPosition(currentGridPosition, gridPosition, this);
+            var oldGridPosition = currentGridPosition;
             currentGridPosition = gridPosition;
+            LevelGrid.Instance.UnitMovedPosition(oldGridPosition, gridPosition, this);
+            
         }
     }
     private void HealthComponent_OnDeath(object sender, EventArgs e)

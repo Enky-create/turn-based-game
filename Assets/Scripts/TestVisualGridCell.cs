@@ -14,7 +14,7 @@ public class TestVisualGridCell : MonoBehaviour
         {
             var validList = unit.GetComponent<MoveAction>().GetValidGridPositionList();
             gridSystemVisual.HideAllGridPositions();
-            gridSystemVisual.ShowVisualsOnCertainPositions(validList);
+            //gridSystemVisual.ShowVisualsOnCertainPositions(validList);
         }
     }
 }

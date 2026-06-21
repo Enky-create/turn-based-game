@@ -4,6 +4,7 @@ using UnityEngine;
 public class LevelGrid : MonoBehaviour
 {
     public static LevelGrid Instance { get; private set; }
+    public event EventHandler UnitMovedPositionEventHandler;
     private GridSystem grid;
     [SerializeField] private VisualGridCell visualGridCell;
 
@@ -41,6 +42,7 @@ public class LevelGrid : MonoBehaviour
     {
         grid.TryAddUnit(newPosition,unit);
         grid.TryRemoveUnit(oldPosition,unit);
+        UnitMovedPositionEventHandler?.Invoke(this,EventArgs.Empty);
     }
     public bool TryAddUnit(GridPosition gridPosition, Unit unit)=>grid.TryAddUnit(gridPosition,unit);
     public bool TryRemoveUnit(GridPosition gridPosition, Unit unit)=>grid.TryRemoveUnit(gridPosition,unit);

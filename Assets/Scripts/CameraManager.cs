@@ -44,7 +44,6 @@ public class CameraManager : MonoBehaviour
     public void Show()
     {
         actionCamera.SetActive(true);
-        Debug.Log("AAA");
     }
     public void Hide()
     {
