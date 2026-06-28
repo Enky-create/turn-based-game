@@ -161,4 +161,8 @@ public class ShootAction : BaseAction
     {
         return maxShootDistance;
     }
+    public override bool IsValidGridPosition(GridPosition gridPosition)
+    {
+        return GetValidGridPositionList().Contains(gridPosition);
+    }
 }

@@ -46,8 +46,8 @@ public class MoveAction : BaseAction
         this.targetPosition = newTargetPosition;
         
     }
-
-    private bool IsValidGridPosition(GridPosition gridPosition)
+    
+    public override bool IsValidGridPosition(GridPosition gridPosition)
     {
         return GetValidGridPositionList().Contains(gridPosition);
     }
@@ -89,4 +89,5 @@ public class MoveAction : BaseAction
         }
         return false;
     }
+    
 }

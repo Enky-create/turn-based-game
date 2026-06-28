@@ -7,6 +7,8 @@ using UnityEngine;
 public class Unit : MonoBehaviour
 {
     public static event EventHandler OnAnyActionPointChange;   
+    public static event EventHandler OnAnyUnitSpawn;
+    public static event EventHandler OnAnyUnitDied;
     [SerializeField] private Animator animator;
     [SerializeField] int maxActionPoints=2;
     [SerializeField] int actionPoints;
@@ -40,6 +42,7 @@ public class Unit : MonoBehaviour
         TurnSystem.Instance.OnTurnChanged+=TurnSystem_OnTurnChanged;
         healthComponent.OnDeath += HealthComponent_OnDeath;
         ResetActionPoints();
+        OnAnyUnitSpawn?.Invoke(this,EventArgs.Empty);
     }
 
     // Update is called once per frame
@@ -57,6 +60,7 @@ public class Unit : MonoBehaviour
     private void HealthComponent_OnDeath(object sender, EventArgs e)
     {
         LevelGrid.Instance.TryRemoveUnit(currentGridPosition,this);
+        OnAnyUnitDied?.Invoke(this,EventArgs.Empty);
         Destroy(gameObject);
     }
     private void TurnSystem_OnTurnChanged(object sender, EventArgs e)

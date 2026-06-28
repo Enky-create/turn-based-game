@@ -41,7 +41,7 @@ public class TurnAction : BaseAction
     }
     public override int GetActionPointsCost()
     {
-        return 2;
+        return 1;
     }
 
     public override bool CanExecute()
@@ -62,5 +62,10 @@ public class TurnAction : BaseAction
         {
             return false;
         }
+    }
+
+    public override bool IsValidGridPosition(GridPosition gridPosition)
+    {
+        return GetValidGridPositionList().Contains(gridPosition);
     }
 }
