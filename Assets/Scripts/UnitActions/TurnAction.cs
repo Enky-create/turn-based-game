@@ -32,6 +32,10 @@ public class TurnAction : BaseAction
     {
         ActionStart(onActionDone);
     }
+    public override void Execute(Action onActionDone,GridPosition gridPosition)
+    {
+        ActionStart(onActionDone);
+    }
 
     public override List<GridPosition> GetValidGridPositionList()
     {
@@ -67,5 +71,14 @@ public class TurnAction : BaseAction
     public override bool IsValidGridPosition(GridPosition gridPosition)
     {
         return GetValidGridPositionList().Contains(gridPosition);
+    }
+
+    public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
+    {
+        return new EnemyAIAction
+        {
+            gridPosition=gridPosition,
+            actionValue=0,
+        };
     }
 }

@@ -19,6 +19,10 @@ public abstract class BaseAction : MonoBehaviour
         
     }
     
+    public virtual void Execute(Action onActionDone, GridPosition gridPosition)
+    {
+        OnActionDone = onActionDone;
+    }
     public virtual void Execute(Action onActionDone)
     {
         OnActionDone = onActionDone;
@@ -34,6 +38,7 @@ public abstract class BaseAction : MonoBehaviour
     {
         return 1;
     }
+    
     protected void ActionStart(Action onActionDone){
         isActive=true;
         OnActionDone=onActionDone;
@@ -44,4 +49,20 @@ public abstract class BaseAction : MonoBehaviour
         OnActionDone?.Invoke();
         OnAnyActionEnd?.Invoke(this,EventArgs.Empty);
     }
+    public EnemyAIAction GetEnemyAIBestAction()
+    {
+        List<GridPosition> validPositions = GetValidGridPositionList();
+        List<EnemyAIAction> enemyAIs = new List<EnemyAIAction>();
+        foreach(GridPosition position in validPositions)
+        {
+            enemyAIs.Add(GetEnemyAIAction(position));
+        }
+        if (enemyAIs.Count == 0)
+        {
+            return null;
+        }
+        enemyAIs.Sort((EnemyAIAction a, EnemyAIAction b)=>b.actionValue-a.actionValue);
+        return enemyAIs[0];
+    }
+    public abstract EnemyAIAction GetEnemyAIAction(GridPosition gridPosition);
 }

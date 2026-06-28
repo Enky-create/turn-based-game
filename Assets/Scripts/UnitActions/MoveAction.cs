@@ -78,6 +78,12 @@ public class MoveAction : BaseAction
         Move(MouseWorld.MousePosition());
         ActionStart(onActionDone);
     }
+    public override void Execute(Action onActionDone, GridPosition gridPosition)
+    {
+        var worldPosition = LevelGrid.Instance.GetWorldPosition(gridPosition);
+        Move(worldPosition);
+        ActionStart(onActionDone);
+    }
 
     public override bool CanExecute()
     {
@@ -89,5 +95,14 @@ public class MoveAction : BaseAction
         }
         return false;
     }
-    
+
+    public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
+    {
+        ShootAction shootAction=unit.GetShootAction();
+        return new EnemyAIAction
+        {
+            gridPosition=gridPosition,
+            actionValue=shootAction.GetTargetsAvailableFromPosition(gridPosition)*10,
+        };
+    }
 }

@@ -113,7 +113,26 @@ public class ShootAction : BaseAction
         timer = 0.5f;
         ActionStart(onActionDone);
     }
+    public override void Execute(Action onActionDone, GridPosition gridPosition)
+    {
+        
+        if (LevelGrid.Instance.TryGetGridObject(gridPosition, out GridObject gridObject))
+        {
+            this.targetUnit = gridObject.GetFirstUnitInList();
+            aimDirection=(targetUnit.transform.position - unit.transform.position).normalized;
+            
+        }
+        canShoot = true;
+        currentState = ShootStateEnum.Aiming;
+        timer = 0.5f;
+        ActionStart(onActionDone);
+    }
     public override List<GridPosition> GetValidGridPositionList()
+    {
+        var unitPositon = unit.GetCurrentGridPosition();
+        return GetValidGridPositionList(unitPositon);
+    }
+    public List<GridPosition> GetValidGridPositionList(GridPosition unitPositon)
     {
         var validPositions = new List<GridPosition>();
         for (int x= -maxShootDistance; x<=maxShootDistance; x++)
@@ -121,7 +140,7 @@ public class ShootAction : BaseAction
             for (int z= -maxShootDistance; z<=maxShootDistance; z++)
             {
                 var offsetGridPosition = new GridPosition(x,z);
-                var unitPositon = unit.GetCurrentGridPosition();
+                
                 var testGridPosition = offsetGridPosition + unitPositon;
                 var worldTestPosition = LevelGrid.Instance.GetWorldPosition(testGridPosition);
                 if(Vector3.Distance(unit.transform.position, worldTestPosition) > maxShootDistance 
@@ -164,5 +183,21 @@ public class ShootAction : BaseAction
     public override bool IsValidGridPosition(GridPosition gridPosition)
     {
         return GetValidGridPositionList().Contains(gridPosition);
+    }
+
+    public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
+    {
+        return new EnemyAIAction
+        {
+            gridPosition=gridPosition,
+            actionValue=100,
+        };
+    }
+    public int GetTargetsAvailableFromPosition(GridPosition gridPosition)
+    {
+        var validPositions=GetValidGridPositionList(gridPosition);
+        
+        return validPositions.Count;
+        
     }
 }

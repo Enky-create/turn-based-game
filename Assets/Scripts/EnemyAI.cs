@@ -68,15 +68,39 @@ public class EnemyAI : MonoBehaviour
     }
     private bool TryTakeEnemyAIAction(Unit unit,Action onActionDone)
     {
-        BaseAction turnAction = unit.GetTurnAction();
-        GridPosition unitPosition = unit.GetCurrentGridPosition();
-        if(!turnAction.IsValidGridPosition(unitPosition))  return false;
-        if (!unit.TrySubstractActionPoints(turnAction.GetActionPointsCost()))
+        var baseActions = unit.GetBaseActions();
+        BaseAction bestAction=null;
+        EnemyAIAction bestEnemyAIAction=null;
+        foreach (BaseAction baseAction in baseActions)
+        {
+            if (!unit.CanSubstratctActionPoints(baseAction.GetActionPointsCost()))
+            {
+                continue;
+            }
+            if (bestAction==null)
+            {
+                bestAction = baseAction;
+                bestEnemyAIAction = baseAction.GetEnemyAIBestAction();
+            }
+            else
+            {
+                EnemyAIAction testEnemyAIAction = baseAction.GetEnemyAIBestAction();
+                if (testEnemyAIAction!=null && testEnemyAIAction.actionValue>bestEnemyAIAction.actionValue)
+                {
+                    bestEnemyAIAction=testEnemyAIAction;
+                    bestAction = baseAction;
+                }
+            }
+        }
+        if(bestAction!=null && unit.TrySubstractActionPoints(bestAction.GetActionPointsCost()))
+        {
+            bestAction.Execute(onActionDone,bestEnemyAIAction.gridPosition);
+            return true;
+        }
+        else
         {
             return false;
         }
-        turnAction?.Execute(onActionDone);
-        return true;
     }
     private void OnTurnChanged(object sender,EventArgs e)
     {

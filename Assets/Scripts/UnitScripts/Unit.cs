@@ -17,6 +17,7 @@ public class Unit : MonoBehaviour
     private LevelGrid levelGridInstance;
     private MoveAction moveAction;
     private TurnAction turnAction;
+    private ShootAction shootAction;
     private BaseAction[] baseActionArray;
     private HealthComponent healthComponent;
     private void Awake()
@@ -24,6 +25,7 @@ public class Unit : MonoBehaviour
         healthComponent = GetComponent<HealthComponent>();
         moveAction = GetComponent<MoveAction>();
         turnAction = GetComponent<TurnAction>();
+        shootAction= GetComponent<ShootAction>();
         baseActionArray = GetComponents<BaseAction>();
         if (LevelGrid.Instance.TryGetGridPosition(transform.position, out GridPosition gridPosition))
         {
@@ -93,6 +95,10 @@ public class Unit : MonoBehaviour
     {
         return turnAction;
     }
+    public ShootAction GetShootAction()
+    {
+        return shootAction;
+    }
     public BaseAction[] GetBaseActions()
     {
         return baseActionArray;
@@ -122,6 +128,14 @@ public class Unit : MonoBehaviour
             return false;
         }
         SubstractActionPoints(points);
+        return true;
+    }
+    public bool CanSubstratctActionPoints(int points)
+    {
+        if (actionPoints < points)
+        {
+            return false;
+        }
         return true;
     }
     public int GetActionPoints()
