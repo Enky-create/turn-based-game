@@ -6,10 +6,10 @@ public class Ragdoll : MonoBehaviour
     [SerializeField] private Transform cloneBone;
     public void Setup(Transform originalBone)
     {
-        MatchBones(originalBone);
+        MatchBones(originalBone,cloneBone);
         ApplyForceToBones(cloneBone);
     }
-    private void MatchBones(Transform originalBone)
+    private void MatchBones(Transform originalBone, Transform cloneBone)
     {
         foreach (Transform child in originalBone)
         {
@@ -18,6 +18,7 @@ public class Ragdoll : MonoBehaviour
             {
                 clone.position = child.position;
                 clone.rotation = child.rotation;
+                MatchBones(child, clone);
             }
         }
     }
@@ -29,7 +30,7 @@ public class Ragdoll : MonoBehaviour
             {
                 var explotionForce = 300f;
                 var selectedUnitPosition = UnitActionSystem.Instance.GetSelectedUnit().transform.position;
-                var explotionPosition = transform.position - (transform.position - selectedUnitPosition).normalized;
+                var explotionPosition = transform.position;
                 var explotionRange = 10f;
                 rigidBody.AddExplosionForce(explotionForce,explotionPosition,explotionRange);
             }
