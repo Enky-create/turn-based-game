@@ -29,7 +29,7 @@ public class Ragdoll : MonoBehaviour
             if(child.TryGetComponent<Rigidbody>(out Rigidbody rigidBody))
             {
                 var explotionForce = 300f;
-                var selectedUnitPosition = UnitActionSystem.Instance.GetSelectedUnit().transform.position;
+                var selectedUnitPosition = transform.position;
                 var explotionPosition = transform.position;
                 var explotionRange = 10f;
                 rigidBody.AddExplosionForce(explotionForce,explotionPosition,explotionRange);
