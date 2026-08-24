@@ -5,16 +5,16 @@ public class RagdollSpawner : MonoBehaviour
 {
     [SerializeField] private Transform ragdolTransform;
     [SerializeField] private Transform originalBone;
-    private HealthComponent healthComponent;
+    private Unit unit;
     void Awake()
     {
-        healthComponent = GetComponent<HealthComponent>();
+        unit = GetComponent<Unit>();
     }
     void Start()
     {
-        healthComponent.OnDeath += HealthComponent_OnDeath;
+        unit.OnUnitDying+=unit_OnUnitDying;
     }
-    private void HealthComponent_OnDeath(object sender, EventArgs e)
+    private void unit_OnUnitDying(object sender, EventArgs e)
     {
         var ragdollInstance = Instantiate(ragdolTransform,
          transform.position,
@@ -23,6 +23,6 @@ public class RagdollSpawner : MonoBehaviour
     }
     void OnDestroy()
     {
-        healthComponent.OnDeath -= HealthComponent_OnDeath;
+        unit.OnUnitDying-=unit_OnUnitDying;
     }
 }

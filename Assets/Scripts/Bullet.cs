@@ -14,7 +14,6 @@ public class Bullet : MonoBehaviour
     }
     public void Setup(Vector3 targetPosition)
     {
-        Debug.Log($"Bullet position {transform.position}");
         targetDirection = (targetPosition - transform.position).normalized;
         this.targetPosition=targetPosition;
         isActive=true;

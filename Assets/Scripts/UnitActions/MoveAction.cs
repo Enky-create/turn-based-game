@@ -96,7 +96,7 @@ public class MoveAction : BaseAction
         return false;
     }
 
-    public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
+    protected override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
     {
         ShootAction shootAction=unit.GetShootAction();
         return new EnemyAIAction

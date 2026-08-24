@@ -9,6 +9,7 @@ public class Unit : MonoBehaviour
     public static event EventHandler OnAnyActionPointChange;   
     public static event EventHandler OnAnyUnitSpawn;
     public static event EventHandler OnAnyUnitDied;
+    public event EventHandler OnUnitDying;
     [SerializeField] private Animator animator;
     [SerializeField] int maxActionPoints=2;
     [SerializeField] int actionPoints;
@@ -63,6 +64,7 @@ public class Unit : MonoBehaviour
     {
         LevelGrid.Instance.TryRemoveUnit(currentGridPosition,this);
         OnAnyUnitDied?.Invoke(this,EventArgs.Empty);
+        OnUnitDying?.Invoke(this,EventArgs.Empty);
         Destroy(gameObject);
     }
     private void TurnSystem_OnTurnChanged(object sender, EventArgs e)

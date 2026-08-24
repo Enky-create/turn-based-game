@@ -73,7 +73,7 @@ public class TurnAction : BaseAction
         return GetValidGridPositionList().Contains(gridPosition);
     }
 
-    public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
+    protected override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
     {
         return new EnemyAIAction
         {

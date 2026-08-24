@@ -45,6 +45,7 @@ public class UnitActionSystem : MonoBehaviour
         {
             return;
         }
+        
         if (!TurnSystem.Instance.IsPlayerTurn())
         {
             return;
@@ -56,6 +57,7 @@ public class UnitActionSystem : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             if (TryHandleSelectionOfUnit()) return;
+            if(selectedUnit==null)return;
             var points = selectedAction.GetActionPointsCost();
             if(!selectedAction.CanExecute())  return;
             if (!selectedUnit.TrySubstractActionPoints(points))

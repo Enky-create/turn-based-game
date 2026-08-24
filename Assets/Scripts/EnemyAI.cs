@@ -35,7 +35,6 @@ public class EnemyAI : MonoBehaviour
             timer-=Time.deltaTime;
             if (timer <= 0)
             {
-                //TurnSystem.Instance.NextTurn();
                 state = State.Busy;
                 if (!TryTakeEnemyAIAction(SetStateTakingTurn))
                 {
@@ -51,7 +50,7 @@ public class EnemyAI : MonoBehaviour
     }
     private void SetStateTakingTurn()
     {
-        timer=.5f;
+        timer=1f;
         state = State.TakingTurn;
     }
     private bool TryTakeEnemyAIAction(Action onActionDone)

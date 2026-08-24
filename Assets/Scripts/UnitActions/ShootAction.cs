@@ -53,6 +53,7 @@ public class ShootAction : BaseAction
                     {
                         target = targetUnit.transform,
                     });
+                    targetUnit.Damage(damage);
                     canShoot = false;
                 }
             break;
@@ -82,11 +83,9 @@ public class ShootAction : BaseAction
                 currentState = ShootStateEnum.CoolOff;
             break;
             case ShootStateEnum.CoolOff:
-                targetUnit.Damage(damage);
                 ActionEnd();
             break;
         }
-        Debug.Log($"Current state is {currentState}");
     }
 
     public override bool CanExecute()
@@ -143,7 +142,8 @@ public class ShootAction : BaseAction
                 
                 var testGridPosition = offsetGridPosition + unitPositon;
                 var worldTestPosition = LevelGrid.Instance.GetWorldPosition(testGridPosition);
-                if(Vector3.Distance(unit.transform.position, worldTestPosition) > maxShootDistance 
+                var unitWorldPosition = LevelGrid.Instance.GetWorldPosition(unitPositon);
+                if(Vector3.Distance(unitWorldPosition, worldTestPosition) > maxShootDistance 
                 * LevelGrid.Instance.GetCellSize())
                 {
                     continue;
@@ -166,7 +166,7 @@ public class ShootAction : BaseAction
     }
     public override int GetActionPointsCost()
     {
-        return 2;
+        return 1;
     }
     public Unit GetUnit()
     {
@@ -185,7 +185,7 @@ public class ShootAction : BaseAction
         return GetValidGridPositionList().Contains(gridPosition);
     }
 
-    public override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
+    protected override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
     {
         return new EnemyAIAction
         {

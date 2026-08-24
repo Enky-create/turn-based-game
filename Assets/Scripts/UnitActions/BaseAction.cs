@@ -64,5 +64,5 @@ public abstract class BaseAction : MonoBehaviour
         enemyAIs.Sort((EnemyAIAction a, EnemyAIAction b)=>b.actionValue-a.actionValue);
         return enemyAIs[0];
     }
-    public abstract EnemyAIAction GetEnemyAIAction(GridPosition gridPosition);
+    protected abstract EnemyAIAction GetEnemyAIAction(GridPosition gridPosition);
 }
