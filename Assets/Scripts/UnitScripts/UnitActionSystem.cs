@@ -35,7 +35,7 @@ public class UnitActionSystem : MonoBehaviour
     }
     private void Start()
     {
-        selectedAction=selectedUnit.GetMoveAction();
+        selectedAction=selectedUnit.GetAction<MoveAction>();
         OnSelectedActionChange?.Invoke(this,EventArgs.Empty);
         OnSelectedUnit?.Invoke(this, new SelectedUnitEventArgs { selectedUnit = this.selectedUnit });
     }
@@ -80,7 +80,7 @@ public class UnitActionSystem : MonoBehaviour
                 if(selectedUnit==unit) return false;
                 if(unit.IsEnemy()) return false;
                 SetSelectedUnit(unit);
-                SetSelectedAction(unit.GetMoveAction());
+                SetSelectedAction(unit.GetAction<MoveAction>());
                 return true;
             }
         }

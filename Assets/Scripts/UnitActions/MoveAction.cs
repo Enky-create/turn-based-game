@@ -98,11 +98,11 @@ public class MoveAction : BaseAction
 
     protected override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
     {
-        ShootAction shootAction=unit.GetShootAction();
+        ShootAction shootAction=unit.GetAction<ShootAction>();
         return new EnemyAIAction
         {
             gridPosition=gridPosition,
-            actionValue=shootAction.GetTargetsAvailableFromPosition(gridPosition)*10,
+            actionValue= shootAction is not null ? shootAction.GetTargetsAvailableFromPosition(gridPosition)*10 : 0,
         };
     }
 }
