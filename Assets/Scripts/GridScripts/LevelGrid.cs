@@ -5,7 +5,7 @@ public class LevelGrid : MonoBehaviour
 {
     public static LevelGrid Instance { get; private set; }
     public event EventHandler UnitMovedPositionEventHandler;
-    private GridSystem grid;
+    private GridSystem<GridObject> grid;
     [SerializeField] private VisualGridCell visualGridCell;
 
     private void Awake()
@@ -18,7 +18,7 @@ public class LevelGrid : MonoBehaviour
             return;
         }
         Instance = this;
-        grid = new GridSystem(10, 10, 2f, Vector3.zero);
+        grid = new GridSystem<GridObject>(10, 10, 2f, Vector3.zero, (GridPosition p,GridSystem<GridObject> g )=>new GridObject(p,g));
     }
     void Start()
     {
@@ -40,12 +40,30 @@ public class LevelGrid : MonoBehaviour
     public bool TryGetGridPosition(Vector3 worldPosition, out GridPosition gridPosition) => grid.TryGetGridPosition(worldPosition, out gridPosition);
     public void UnitMovedPosition(GridPosition oldPosition, GridPosition newPosition, Unit unit)
     {
-        grid.TryAddUnit(newPosition,unit);
-        grid.TryRemoveUnit(oldPosition,unit);
+        grid.TryGetGridObject(newPosition, out GridObject newGridObject);
+        newGridObject?.AddUnit(unit);
+        grid.TryGetGridObject(oldPosition, out GridObject oldGridObject);
+        oldGridObject.RemoveUnit(unit);
         UnitMovedPositionEventHandler?.Invoke(this,EventArgs.Empty);
     }
-    public bool TryAddUnit(GridPosition gridPosition, Unit unit)=>grid.TryAddUnit(gridPosition,unit);
-    public bool TryRemoveUnit(GridPosition gridPosition, Unit unit)=>grid.TryRemoveUnit(gridPosition,unit);
+    public bool TryAddUnit(GridPosition gridPosition, Unit unit)
+    {
+        if(grid.TryGetGridObject(gridPosition, out GridObject gridObject))
+        {
+            gridObject.AddUnit(unit);
+            return true;
+        }
+        return false;
+    }
+    public bool TryRemoveUnit(GridPosition gridPosition, Unit unit)
+    {
+        if(grid.TryGetGridObject(gridPosition, out GridObject gridObject))
+        {
+            gridObject.RemoveUnit(unit);
+            return true;
+        }
+        return false;
+    }
     public int GetWidth() => grid.GetWidth();
     public int GetLength() => grid.GetLength();
     public float GetCellSize() => grid.GetCellSize();
