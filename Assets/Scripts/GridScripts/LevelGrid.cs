@@ -22,16 +22,16 @@ public class LevelGrid : MonoBehaviour
     }
     void Start()
     {
-        for (int x = 0; x < grid.GetWidth(); x++)
-        {
-            for (int z = 0; z < grid.GetLength(); z++)
-            {
-                var gridPosition = new GridPosition(x, z);
-                Vector3 pos = grid.GetWorldPosition(gridPosition);
-                VisualGridCell gridcell = Instantiate(visualGridCell, pos, Quaternion.identity);
-                gridcell.SetGridObject(grid.GetGridObject(gridPosition));
-            }
-        }
+        // for (int x = 0; x < grid.GetWidth(); x++)
+        // {
+        //     for (int z = 0; z < grid.GetLength(); z++)
+        //     {
+        //         var gridPosition = new GridPosition(x, z);
+        //         Vector3 pos = grid.GetWorldPosition(gridPosition);
+        //         VisualGridCell gridcell = Instantiate(visualGridCell, pos, Quaternion.identity);
+        //         gridcell.SetGridObject(grid.GetGridObject(gridPosition));
+        //     }
+        // }
     }
     public bool TryGetGridObject(GridPosition gridPosition, out GridObject gridObject)=> grid.TryGetGridObject(gridPosition,out gridObject);
     public bool TryGetGridObject(Vector3 worldPosition, out GridObject gridObject)=> grid.TryGetGridObject(worldPosition,out gridObject);

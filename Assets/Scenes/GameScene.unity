@@ -184,6 +184,50 @@ MonoBehaviour:
   endOfTurnButton: {fileID: 1568790884}
   currentTurnText: {fileID: 927716092}
   enemyTurnBanner: {fileID: 2083307990}
+--- !u!1 &190699147
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 190699149}
+  - component: {fileID: 190699148}
+  m_Layer: 0
+  m_Name: Test
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &190699148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 190699147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ce82c2de95da5f4b823966f245ae5c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TestVisualGridCell
+--- !u!4 &190699149
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 190699147}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 11.64153, y: 0.021, z: 9.75398}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &202992358
 GameObject:
   m_ObjectHideFlags: 0
@@ -2503,6 +2547,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1369514526}
   m_CullTransparentMesh: 1
+--- !u!1 &1390046547
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1390046549}
+  - component: {fileID: 1390046548}
+  m_Layer: 0
+  m_Name: Pathfinding
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1390046548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1390046547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0313a84eb0f2e6b4b70e3601c3e588e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Pathfinding
+  pathfindingVisual: {fileID: 582979819916178619, guid: 7e65199f7bb15f66e98c700b73aad8ba, type: 3}
+--- !u!4 &1390046549
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1390046547}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 11.64153, y: 0.021, z: 9.75398}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &1406437520 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6584126934392473876, guid: 0168732490d0d995096e7cb2d6d70b3b, type: 3}
@@ -3349,8 +3438,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ce82c2de95da5f4b823966f245ae5c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TestVisualGridCell
-  unit: {fileID: 0}
-  gridSystemVisual: {fileID: 1614709704}
 --- !u!4 &1696951772
 Transform:
   m_ObjectHideFlags: 0
@@ -3915,3 +4002,5 @@ SceneRoots:
   - {fileID: 1145433887}
   - {fileID: 1559642275}
   - {fileID: 1217569935}
+  - {fileID: 1390046549}
+  - {fileID: 190699149}

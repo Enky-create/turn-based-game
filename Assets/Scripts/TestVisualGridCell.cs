@@ -1,20 +1,27 @@
-using TMPro;
-using Unity.VisualScripting;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class TestVisualGridCell : MonoBehaviour
 {
-    [SerializeField] private Unit unit;
-    [SerializeField] private GridSystemVisual gridSystemVisual;
-
-
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            var validList = unit.GetComponent<MoveAction>().GetValidGridPositionList();
-            gridSystemVisual.HideAllGridPositions();
-            //gridSystemVisual.ShowVisualsOnCertainPositions(validList);
+            GridPosition mouseGridPosition = LevelGrid.Instance.GetGridPosition(MouseWorld.MousePosition());
+            GridPosition startGridPosition = new GridPosition(0, 0);
+
+            List<GridPosition> gridPositionList = Pathfinding.Instance.FindPath(startGridPosition, mouseGridPosition);
+
+            for (int i = 0; i < gridPositionList.Count - 1; i++)
+            {
+                Debug.DrawLine(
+                    LevelGrid.Instance.GetWorldPosition(gridPositionList[i]),
+                    LevelGrid.Instance.GetWorldPosition(gridPositionList[i + 1]),
+                    Color.white,
+                    10f
+                );
+            }
         }
+
     }
 }
