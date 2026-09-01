@@ -50,8 +50,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6143492360995401207, guid: 94e8eaaa4e026eb66881a559ac408ff2, type: 3}
       propertyPath: m_Name
-      value: Unit Ragdoll
+      value: Unit Ragdoll Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 6143492360998510817, guid: 94e8eaaa4e026eb66881a559ac408ff2, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 7d22fc6b9a431b043a917fb89a80bcfc, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

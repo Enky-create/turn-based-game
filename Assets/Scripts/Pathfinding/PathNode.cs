@@ -1,7 +1,9 @@
 using UnityEngine;
+using UnityEngine.UIElements.Experimental;
 
 public class PathNode
 {
+    private bool isWalkable = true;
     private GridPosition gridPosition;
     private int fCost;
     private int gCost;
@@ -49,5 +51,13 @@ public class PathNode
     }
     public void ResetCameFromNode() {
         cameFromNode = null;
+    }
+    public bool GetIsWalkable()
+    {
+        return isWalkable;
+    }
+    public void SetIsWalkable(bool value)
+    {
+        isWalkable = value;
     }
 }

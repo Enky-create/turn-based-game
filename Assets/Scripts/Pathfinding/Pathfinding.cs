@@ -8,6 +8,7 @@ public class Pathfinding : MonoBehaviour
     private const int MOVE_STRAIGHT_COST = 10;
 
     [SerializeField] private PathfindingVisual pathfindingVisual;
+    [SerializeField] private LayerMask obstacleLayerMask;
     private GridSystem<PathNode> grid;
     public static Pathfinding Instance;
     void Awake()
@@ -19,10 +20,28 @@ public class Pathfinding : MonoBehaviour
             return;
         }
         Instance = this;
-        grid = new GridSystem<PathNode>(10, 10, 2f, Vector3.zero, (GridPosition p,GridSystem<PathNode> g )=>new PathNode(p));
+        
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public void Setup(int width, int length, float cellSize, Vector3 originPosition)
+    {
+        grid = new GridSystem<PathNode>(width, length, cellSize, originPosition,
+         (GridPosition p,GridSystem<PathNode> g )=>new PathNode(p));
+        for (int x = 0; x < grid.GetWidth(); x++)
+        {
+            for (int z = 0; z < grid.GetLength(); z++)
+            {
+                var gridPosition = new GridPosition(x, z);
+                Vector3 pos = grid.GetWorldPosition(gridPosition);
+                var raycastOffset = 5;
+                if(Physics.Raycast(pos + Vector3.down * raycastOffset, Vector3.up, raycastOffset * 2, obstacleLayerMask))
+                {
+                    PathNode pathNode = grid.GetGridObject(gridPosition);
+                    pathNode.SetIsWalkable(false);
+                }
+            }
+        }
+    }
     void Start()
     {
         //test objects
@@ -69,6 +88,15 @@ public class Pathfinding : MonoBehaviour
             closedList.Add(lowestFcostNode);
             foreach(PathNode pathNode in GetNeighbourList(lowestFcostNode))
             {
+                if (closedList.Contains(pathNode))
+                {
+                    continue;
+                }
+                if (!pathNode.GetIsWalkable())
+                {
+                    closedList.Add(pathNode);
+                    continue;
+                }
                 var tentativeGcost = lowestFcostNode.GetGcost() + CalculateDistance(lowestFcostNode.GetGridPosition(),
                 pathNode.GetGridPosition());
                 if(tentativeGcost < pathNode.GetGcost())

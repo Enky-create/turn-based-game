@@ -3,6 +3,10 @@ using UnityEngine;
 
 public class LevelGrid : MonoBehaviour
 {
+    [SerializeField] private int width;
+    [SerializeField] private int length;
+    [SerializeField] private float cellsize;
+    [SerializeField] private Vector3 originPosition;
     public static LevelGrid Instance { get; private set; }
     public event EventHandler UnitMovedPositionEventHandler;
     private GridSystem<GridObject> grid;
@@ -18,7 +22,9 @@ public class LevelGrid : MonoBehaviour
             return;
         }
         Instance = this;
-        grid = new GridSystem<GridObject>(10, 10, 2f, Vector3.zero, (GridPosition p,GridSystem<GridObject> g )=>new GridObject(p,g));
+        grid = new GridSystem<GridObject>(width, length, cellsize, originPosition, 
+        (GridPosition p,GridSystem<GridObject> g )=>new GridObject(p,g));
+        Pathfinding.Instance.Setup(width, length, cellsize, originPosition);
     }
     void Start()
     {
