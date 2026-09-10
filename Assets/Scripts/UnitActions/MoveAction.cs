@@ -5,10 +5,11 @@ using UnityEngine;
 
 public class MoveAction : BaseAction
 {
-    private GridPosition targetPosition;
+    private List<GridPosition> movePositionList;
     [SerializeField] private int maxMoveDistance;
     [SerializeField] private int speed = 7;
     [SerializeField] private int rotationSpeed = 10;
+    private int currentGridPositionIndex;
     protected override void Awake()
     {
         base.Awake();
@@ -16,7 +17,7 @@ public class MoveAction : BaseAction
     }
     private void Start()
     {
-        targetPosition = unit.GetCurrentGridPosition();
+        //targetPosition = unit.GetCurrentGridPosition();
     }
     void Update()
     {
@@ -25,7 +26,7 @@ public class MoveAction : BaseAction
             return;
         }
         var stoppingDistance = 0.1;
-        var worldPosition = LevelGrid.Instance.GetWorldPosition(targetPosition);
+        var worldPosition = LevelGrid.Instance.GetWorldPosition(movePositionList[currentGridPositionIndex]);
         if (Vector3.Distance(transform.position, worldPosition) > stoppingDistance)
         {
             Vector3 moveDirection = (worldPosition - this.transform.position).normalized;
@@ -36,15 +37,19 @@ public class MoveAction : BaseAction
         }
         else
         {
-            OnActionEnd?.Invoke(this,EventArgs.Empty);
-            ActionEnd();
+            currentGridPositionIndex++;
+            if (currentGridPositionIndex >= movePositionList.Count)
+            {
+                OnActionEnd?.Invoke(this,EventArgs.Empty);
+                ActionEnd();
+            }
         }
     }
     private void Move(Vector3 worldPosition)
     {
         var newTargetPosition = LevelGrid.Instance.GetGridPosition(worldPosition);
-        this.targetPosition = newTargetPosition;
-        
+        this.movePositionList = Pathfinding.Instance.FindPath(unit.GetCurrentGridPosition(),newTargetPosition,out int length);
+        currentGridPositionIndex = 0;
     }
     
     public override bool IsValidGridPosition(GridPosition gridPosition)
@@ -64,10 +69,20 @@ public class MoveAction : BaseAction
                 var testGridPosition = offsetGridPosition + unitPositon;
                 if(LevelGrid.Instance.TryGetGridObject(testGridPosition, out GridObject gridObject))
                 {
-                    if (gridObject.IsEmpty())
+                    if (!gridObject.IsEmpty())
                     {
-                        validPositions.Add(testGridPosition);
+                        continue;
                     }
+                    if (Pathfinding.Instance.FindPath(unit.GetCurrentGridPosition(),testGridPosition,out int length) is null)
+                    {
+                        continue;
+                    }
+                    var distanceMultyplied = maxMoveDistance*10;
+                    if(length > distanceMultyplied)
+                    {
+                        continue;
+                    }
+                    validPositions.Add(testGridPosition);
                 }
             }
         }

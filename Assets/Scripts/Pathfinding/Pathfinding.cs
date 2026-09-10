@@ -34,7 +34,7 @@ public class Pathfinding : MonoBehaviour
                 var gridPosition = new GridPosition(x, z);
                 Vector3 pos = grid.GetWorldPosition(gridPosition);
                 var raycastOffset = 5;
-                if(Physics.Raycast(pos + Vector3.down * raycastOffset, Vector3.up, raycastOffset * 2, obstacleLayerMask))
+                if(Physics.SphereCast(pos + Vector3.down*raycastOffset, 1f, Vector3.up,out RaycastHit hitInfo, 2*raycastOffset, obstacleLayerMask))
                 {
                     PathNode pathNode = grid.GetGridObject(gridPosition);
                     pathNode.SetIsWalkable(false);
@@ -45,18 +45,18 @@ public class Pathfinding : MonoBehaviour
     void Start()
     {
         //test objects
-        for (int x = 0; x < grid.GetWidth(); x++)
-        {
-            for (int z = 0; z < grid.GetLength(); z++)
-            {
-                var gridPosition = new GridPosition(x, z);
-                Vector3 pos = grid.GetWorldPosition(gridPosition);
-                PathfindingVisual gridcell = Instantiate(pathfindingVisual, pos, Quaternion.identity);
-                gridcell.SetPathNode(grid.GetGridObject(gridPosition));
-            }
-        }
+        // for (int x = 0; x < grid.GetWidth(); x++)
+        // {
+        //     for (int z = 0; z < grid.GetLength(); z++)
+        //     {
+        //         var gridPosition = new GridPosition(x, z);
+        //         Vector3 pos = grid.GetWorldPosition(gridPosition);
+        //         PathfindingVisual gridcell = Instantiate(pathfindingVisual, pos, Quaternion.identity);
+        //         gridcell.SetPathNode(grid.GetGridObject(gridPosition));
+        //     }
+        // }
     }
-    public List<GridPosition> FindPath(GridPosition pointA, GridPosition pointB)
+    public List<GridPosition> FindPath(GridPosition pointA, GridPosition pointB, out int length)
     {
         List<PathNode> openList = new List<PathNode>();
         List<PathNode> closedList = new List<PathNode>();
@@ -82,6 +82,7 @@ public class Pathfinding : MonoBehaviour
             var lowestFcostNode = GetLowestFcostNode(openList);
             if (lowestFcostNode.GetGridPosition() == pointB)
             {
+                length = lowestFcostNode.GetFcost();
                 return CalculatePath(lowestFcostNode);
             }
             openList.Remove(lowestFcostNode);
@@ -111,8 +112,12 @@ public class Pathfinding : MonoBehaviour
                 }
             }
         }
-
+        length = 0;
         return null;
+    }
+    public bool HasPath(GridPosition startPosition, GridPosition endPosition)
+    {
+        return FindPath(startPosition,endPosition, out int length ) is not null;
     }
     private int CalculateDistance(GridPosition pointA,GridPosition pointB)
     {

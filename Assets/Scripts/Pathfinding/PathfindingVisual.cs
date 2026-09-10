@@ -7,6 +7,7 @@ public class PathfindingVisual : MonoBehaviour
     [SerializeField] private TextMeshPro fCost;
     [SerializeField] private TextMeshPro gCost;
     [SerializeField] private TextMeshPro hCost;
+    [SerializeField] private SpriteRenderer sprite;
     private PathNode pathNode;
     public void SetPathNode(PathNode node)
     {
@@ -20,5 +21,6 @@ public class PathfindingVisual : MonoBehaviour
         fCost.text = pathNode.GetFcost().ToString();
         gCost.text = pathNode.GetGcost().ToString();
         hCost.text = pathNode.GetHcost().ToString();
+        sprite.color = pathNode.GetIsWalkable() ? Color.green : Color.red;
     }
 }
