@@ -41,4 +41,8 @@ public class HealthComponent : MonoBehaviour
     {
         return maxHealth;
     }
+    public float GetHealthNormilized()
+    {
+        return (float)health/maxHealth;
+    }
 }

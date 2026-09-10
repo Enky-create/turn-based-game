@@ -151,4 +151,8 @@ public class Unit : MonoBehaviour
         TurnSystem.Instance.OnTurnChanged-=TurnSystem_OnTurnChanged;
         healthComponent.OnDeath -= HealthComponent_OnDeath;
     }
+    public float GetHealthNormilized()
+    {
+        return healthComponent.GetHealthNormilized();
+    }
 }

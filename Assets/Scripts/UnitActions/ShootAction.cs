@@ -2,12 +2,14 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEngine.Animations;
+using Unity.VisualScripting;
 
 public class ShootAction : BaseAction
 {
     [SerializeField] private int maxShootDistance;
     [SerializeField] private int damage = 3;
     [SerializeField] private int aimingSpeed = 10;
+    [SerializeField] private LayerMask obstaclesLayer;
     public class ShootEventArgs: EventArgs{
         public Transform target;
     }
@@ -154,6 +156,13 @@ public class ShootAction : BaseAction
                     {
                         continue;
                     }
+                    var raycastDirection = (worldTestPosition - unitWorldPosition).normalized;
+                    var distance = Vector3.Distance(unitWorldPosition,worldTestPosition);
+                    var shoulderHeight=1.7f*Vector3.up;
+                    if (Physics.Raycast(unitWorldPosition+shoulderHeight,raycastDirection,distance,obstaclesLayer))
+                    {
+                        continue;
+                    }
                     var testUnit=gridObject.GetFirstUnitInList();
                     if(testUnit!=unit && testUnit.IsEnemy() != unit.IsEnemy())
                     {
@@ -187,10 +196,13 @@ public class ShootAction : BaseAction
 
     protected override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
     {
+        LevelGrid.Instance.TryGetGridObject(gridPosition,out GridObject gridObject);
+        float unitHealth = gridObject.GetFirstUnitInList().GetHealthNormilized();
+
         return new EnemyAIAction
         {
             gridPosition=gridPosition,
-            actionValue=100,
+            actionValue=100 + Mathf.RoundToInt(1-unitHealth)*100,
         };
     }
     public int GetTargetsAvailableFromPosition(GridPosition gridPosition)

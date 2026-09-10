@@ -3468,6 +3468,9 @@ MonoBehaviour:
   maxShootDistance: 5
   damage: 3
   aimingSpeed: 10
+  obstaclesLayer:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!114 &4190434582052942730
 MonoBehaviour:
   m_ObjectHideFlags: 0
