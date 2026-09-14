@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 
 public class ShootAction : BaseAction
 {
+    public static EventHandler<ShootEventArgs> OnAnyShoot;
     [SerializeField] private int maxShootDistance;
     [SerializeField] private int damage = 3;
     [SerializeField] private int aimingSpeed = 10;
@@ -52,6 +53,10 @@ public class ShootAction : BaseAction
                 if(canShoot){
                     
                     OnActionStart?.Invoke(this, new ShootEventArgs
+                    {
+                        target = targetUnit.transform,
+                    });
+                    OnAnyShoot?.Invoke(this, new ShootEventArgs
                     {
                         target = targetUnit.transform,
                     });
