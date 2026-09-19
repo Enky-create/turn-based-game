@@ -95,19 +95,8 @@ public class ShootAction : BaseAction
         }
     }
 
-    public override bool CanExecute()
-    {
-        var worldPosition = MouseWorld.MousePosition();
-        var newTargetPosition = LevelGrid.Instance.GetGridPosition(worldPosition);
-        if (GetValidGridPositionList().Contains(newTargetPosition))
-        {
-            return true;
-        }
-        return false;
-    }
     public override void Execute(Action onActionDone)
     {
-        
         if (LevelGrid.Instance.TryGetGridObject(MouseWorld.MousePosition(), out GridObject gridObject))
         {
             this.targetUnit = gridObject.GetFirstUnitInList();

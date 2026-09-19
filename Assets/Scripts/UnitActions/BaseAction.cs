@@ -33,7 +33,16 @@ public abstract class BaseAction : MonoBehaviour
     }
     public abstract List<GridPosition> GetValidGridPositionList();
     public abstract bool IsValidGridPosition(GridPosition gridPosition);
-    public abstract bool CanExecute();
+    public virtual bool CanExecute()
+    {
+        var worldPosition = MouseWorld.MousePosition();
+        var newTargetPosition = LevelGrid.Instance.GetGridPosition(worldPosition);
+        if (IsValidGridPosition(newTargetPosition))
+        {
+            return true;
+        }
+        return false;
+    }
     public virtual int GetActionPointsCost()
     {
         return 1;

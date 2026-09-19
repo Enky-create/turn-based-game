@@ -100,16 +100,6 @@ public class MoveAction : BaseAction
         ActionStart(onActionDone);
     }
 
-    public override bool CanExecute()
-    {
-        var worldPosition = MouseWorld.MousePosition();
-        var newTargetPosition = LevelGrid.Instance.GetGridPosition(worldPosition);
-        if (IsValidGridPosition(newTargetPosition))
-        {
-            return true;
-        }
-        return false;
-    }
 
     protected override EnemyAIAction GetEnemyAIAction(GridPosition gridPosition)
     {
