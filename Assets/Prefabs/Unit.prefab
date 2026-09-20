@@ -3349,6 +3349,7 @@ GameObject:
   - component: {fileID: 7460463347776925695}
   - component: {fileID: 4190434582052942730}
   - component: {fileID: 2076181760397878168}
+  - component: {fileID: 2167255739148943313}
   m_Layer: 3
   m_Name: Unit
   m_TagString: Untagged
@@ -3499,3 +3500,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RagdollSpawner
   ragdolTransform: {fileID: 6143492360995303895, guid: 94e8eaaa4e026eb66881a559ac408ff2, type: 3}
   originalBone: {fileID: 755666466870557112}
+--- !u!114 &2167255739148943313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9102668238669388506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 890fc656fdda1381084c8ba463c1a2da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GranadeAction
+  maxThrowDistance: 7
+  grenadeTransform: {fileID: 8628779480812568658, guid: f5beb589d973ad9399594eac79340b03, type: 3}

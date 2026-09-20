@@ -11,7 +11,7 @@ public class MouseWorld : MonoBehaviour
     }
     void Update()
     {
-        transform.position = MouseWorld.MousePosition();
+        //transform.position = MouseWorld.MousePosition();
     }
     public static Vector3 MousePosition()
     {
