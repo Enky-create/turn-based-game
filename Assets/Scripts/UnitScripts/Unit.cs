@@ -4,7 +4,7 @@ using NUnit.Framework;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Unit : MonoBehaviour
+public class Unit : MonoBehaviour,IDestractable
 {
     public static event EventHandler OnAnyActionPointChange;   
     public static event EventHandler OnAnyUnitSpawn;

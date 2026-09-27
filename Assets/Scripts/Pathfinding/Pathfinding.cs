@@ -119,6 +119,11 @@ public class Pathfinding : MonoBehaviour
     {
         return FindPath(startPosition,endPosition, out int length ) is not null;
     }
+    public void SetIsWalkable(GridPosition gridPosition,bool value)
+    {
+        var pathnode = grid.GetGridObject(gridPosition);
+        pathnode.SetIsWalkable(value);
+    }
     private int CalculateDistance(GridPosition pointA,GridPosition pointB)
     {
         var distance = pointA - pointB;
