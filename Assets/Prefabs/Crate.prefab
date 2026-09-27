@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67ccca794c413041da13ee12d9cc4688, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Crate
+  cratePartsVisuals: {fileID: 2749283387749733551, guid: 97733cfc53905bc6db0f55f7f54c7e27, type: 3}
 --- !u!65 &7384122206416605669
 BoxCollider:
   m_ObjectHideFlags: 0
